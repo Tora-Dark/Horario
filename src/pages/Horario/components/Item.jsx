@@ -25,9 +25,9 @@ const Item = ({ clase, color, turn, fecha }) => {
       </div>
     </div>
   ) : (
-    <div className="text-black flex items-center place-content-center">
+    <div className="  flex items-center place-content-center">
       <IconButton aria-label="" onClick={handleButtonClick}>
-        <HiOutlinePlusCircle className="" />
+        <HiOutlinePlusCircle  />
       </IconButton>
     </div>
   );
