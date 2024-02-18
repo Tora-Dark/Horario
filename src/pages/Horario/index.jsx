@@ -8,7 +8,11 @@ import TabPanel from "./components/VerticalTabs.jsx";
 import AssigmentBar from "./components/AssigmentBar.jsx";
 
 import { NextUIProvider } from "@nextui-org/react";
-import Tabs from "./components/Tabs.jsx";
+
+import { VerticalTabsNew } from "./components/VerticalTabsNew.jsx";
+import Modal from "./components/BasicModal.jsx";
+import Button from '@mui/material/Button'
+import BasicModal from "./components/BasicModal.jsx";
 
 const apiURL = "http://127.0.0.1:8000/api";
 // const apiURL = import.meta.env.VITE_API_URL;
@@ -45,7 +49,13 @@ export default function Horario() {
   const [asignaturaSeleccionada, setAsignaturaSeleccionada] = useState(
     asignaturas[0]
   );
-  console.log(asignaturaSeleccionada);
+
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const onOpenModal = () => {}
+  const onCloseModal = () => {
+    setIsModalOpen(false);
+  }
 
   const getSemanas = async () => {
     try {
@@ -191,18 +201,24 @@ export default function Horario() {
               setSemanasSeleccionada={setSemanasSeleccionada}
             />
           </div>
-          <div>
-          <HorarioTabla horarioTabla={horarioTabla} />
+          <Button variant="text" color="primary" onClick={() => setIsModalOpen(true)}>
+            Activar Modal
+          </Button>
+          <div className="mt-4">
+            <HorarioTabla horarioTabla={horarioTabla} />
           </div>
-          <div className="items-center place-content-center  p-6 ">
-            <Tabs
-              asignaturas={asignaturas}
-              asignaturaSeleccionada={asignaturaSeleccionada}
-              setAsignaturaSeleccionada={setAsignaturaSeleccionada}
-            />
+          <div className="items-center place-content-center p-3  w-56">
+            {asignaturas?.length <= 0 ? (
+              <></>
+            ) : (
+              <VerticalTabsNew asignaturas={asignaturas}
+              setAsignaturaSeleccionada={setAsignaturaSeleccionada} />
+            )}{" "}
+           
           </div>
         </div>
       </div>
+      <BasicModal isOpen={isModalOpen} onOpen={onOpenModal} onClose={onCloseModal}/>
     </>
   );
 }

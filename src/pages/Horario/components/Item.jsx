@@ -9,9 +9,9 @@ const Item = ({ clase, color, turn, fecha }) => {
     navigate(`/createClase?turn=${turn+1}&fecha=${fecha+1}`);
   };
   return clase ? (
-    <div className={`${color} ` + "text-black w-full h-full"}>
+    <div className={`${color} ` + "text-slate-700 rounded shadow-sm shadow-slate-700 transition-all m-2 w-full h-12"}>
       <div className="grid grid-cols-4">
-        <div className="col-span-3 flex flex-col w-full h-full border-r border-black">
+        <div className="col-span-3 flex flex-col w-full h-full border-r border-slate-700">
           <div className="flex justify-evenly">
             <h2>{clase?.asignatura?.nombre}</h2>
             <h2>{clase?.tipo}</h2>
@@ -25,7 +25,7 @@ const Item = ({ clase, color, turn, fecha }) => {
       </div>
     </div>
   ) : (
-    <div className="  flex items-center place-content-center">
+    <div className="  flex items-center place-content-center transition-all m-2 w-full h-12">
       <IconButton aria-label="" onClick={handleButtonClick}>
         <HiOutlinePlusCircle  />
       </IconButton>
