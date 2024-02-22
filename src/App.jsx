@@ -6,6 +6,8 @@ import ShowClases from "./components/clases/ShowClases.jsx";
 import CreateClases from "./components/clases/CreateClases.jsx";
 import Horario from "./pages/Horario/index.jsx";
 import AssigmentBar from "./pages/Horario/components/AssigmentBar.jsx";
+import { Button } from "@mui/material";
+
 
 
 const apiURL = "http://127.0.0.1:8000/api";
@@ -22,16 +24,9 @@ export default function App() {
         Horario de Clases de la brigada:
       </h2>
       <div className="flex w-full items-center place-content-center gap-4">
-        <a className="bg-sky-500  shadow-sky-500/50  hover:bg-sky-700 rounded p-2 text-white shadow-lg btn-lg m-3">
-          Agregar Asigatura
-        </a>
-
-        <a className="bg-sky-500  shadow-sky-500/50 hover:bg-sky-700 rounded p-2 text-white shadow-lg btn-lg m-3">
-          Agregar Local
-        </a>
+      <Button>hola</Button>
       </div>
    
-     
 
         <BrowserRouter>
           <Routes>

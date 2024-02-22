@@ -11,7 +11,7 @@ import { NextUIProvider } from "@nextui-org/react";
 
 import { VerticalTabsNew } from "./components/VerticalTabsNew.jsx";
 import Modal from "./components/BasicModal.jsx";
-import Button from '@mui/material/Button'
+import Button from "@mui/material/Button";
 import BasicModal from "./components/BasicModal.jsx";
 
 const apiURL = "http://127.0.0.1:8000/api";
@@ -49,19 +49,32 @@ export default function Horario() {
   const [asignaturaSeleccionada, setAsignaturaSeleccionada] = useState(
     asignaturas[0]
   );
+  //Arreglo con todos los locales
+  const [locales, setLocales] = useState([]);
 
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isCHanged, setIsChanged] = useState(false);
 
-  const onOpenModal = () => {}
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const onOpenModal = () => {};
   const onCloseModal = () => {
     setIsModalOpen(false);
-  }
+  };
 
   const getSemanas = async () => {
     try {
       const response = await axios.get(`${apiURL}/horarios`);
       setSemanas(response.data);
     } catch (error) {
+      console.log(`error: ${err}`);
+    }
+  };
+
+  const getAlllocales = async () => {
+    try {
+      const response = await axios.get(`${apiURL}/locales`);
+      setLocales(response.data);
+    } catch (err) {
       console.log(`error: ${err}`);
     }
   };
@@ -87,6 +100,7 @@ export default function Horario() {
   //Trae todas las clases de la semana seleccionada
   const getAllClases = async () => {
     setIsLoading(true);
+    setIsChanged(false);
     try {
       const response = await axios.get(
         `${apiURL}/horarios/${semanasSeleccionada}`
@@ -106,12 +120,15 @@ export default function Horario() {
     getAllBrigadas();
     getSemanas();
     getAsignaturas();
+    getAlllocales();
   }, []);
 
   useEffect(() => {
     getAllClases();
   }, [semanasSeleccionada]);
-
+  useEffect(() => {
+    getAllClases();
+  }, [isCHanged]);
   useEffect(() => {
     crearHorarioTabla(clases);
   }, [brigadaSeleccionada]);
@@ -201,31 +218,51 @@ export default function Horario() {
               setSemanasSeleccionada={setSemanasSeleccionada}
             />
           </div>
-          <Button variant="text" color="primary" onClick={() => setIsModalOpen(true)}>
-            Activar Modal
-          </Button>
           <div className="mt-4">
-            <HorarioTabla horarioTabla={horarioTabla} />
+            <HorarioTabla
+              horarioTabla={horarioTabla}
+              brigadas={brigadas}
+              brigadaSeleccionada={brigadaSeleccionada}
+              asignaturas={asignaturas}
+              locales={locales}
+              semanasSeleccionada={semanasSeleccionada}
+              isCHanged={isCHanged}
+              setIsChanged={setIsChanged}
+            />
           </div>
-          <div className="items-center place-content-center p-3  w-56">
+          <div className="items-center place-content-center p-3  w-72">
             {asignaturas?.length <= 0 ? (
               <></>
             ) : (
-              <VerticalTabsNew asignaturas={asignaturas}
-              setAsignaturaSeleccionada={setAsignaturaSeleccionada} />
+              <VerticalTabsNew
+                asignaturas={asignaturas}
+                setAsignaturaSeleccionada={setAsignaturaSeleccionada}
+              />
             )}{" "}
-           
           </div>
         </div>
       </div>
-      <BasicModal isOpen={isModalOpen} onOpen={onOpenModal} onClose={onCloseModal}/>
+      <BasicModal
+        isOpen={isModalOpen}
+        onOpen={onOpenModal}
+        onClose={onCloseModal}
+      />
     </>
   );
 }
 
 Horario.propTypes = {};
 
-export function HorarioTabla({ horarioTabla }) {
+export function HorarioTabla({
+  horarioTabla,
+  brigadas,
+  brigadaSeleccionada,
+  asignaturas,
+  locales,
+  semanasSeleccionada,
+  isCHanged,
+  setIsChanged,
+}) {
   return (
     <table className="border-collapse border table-auto md:table-fixed border-slate-500 shadow-lg ">
       <thead className="border bg-slate-800 text-white border-slate-600 ">
@@ -253,6 +290,13 @@ export function HorarioTabla({ horarioTabla }) {
                     color={"bg-sky-300"}
                     turn={turno}
                     fecha={fecha}
+                    brigadas={brigadas}
+                    brigadaSeleccionada={brigadaSeleccionada}
+                    asignaturas={asignaturas}
+                    locales={locales}
+                    semanasSeleccionada={semanasSeleccionada}
+                    isCHanged={isCHanged}
+                    setIsChanged={setIsChanged}
                   />
                 </div>
               </td>
