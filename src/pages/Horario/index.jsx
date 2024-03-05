@@ -10,9 +10,9 @@ import AssigmentBar from "./components/AssigmentBar.jsx";
 import { NextUIProvider } from "@nextui-org/react";
 
 import { VerticalTabsNew } from "./components/VerticalTabsNew.jsx";
-import Modal from "./components/BasicModal.jsx";
+import Modal from "./components/CreateClassModal.jsx";
 import Button from "@mui/material/Button";
-import BasicModal from "./components/BasicModal.jsx";
+import BasicModal from "./components/CreateClassModal.jsx";
 
 const apiURL = "http://127.0.0.1:8000/api";
 // const apiURL = import.meta.env.VITE_API_URL;
@@ -265,23 +265,23 @@ export function HorarioTabla({
 }) {
   return (
     <table className="border-collapse border table-auto md:table-fixed border-slate-500 shadow-lg ">
-      <thead className="border bg-slate-800 text-white border-slate-600 ">
+      <thead className="border bg-slate-800 h-10 text-white border-slate-600 ">
         <tr>
-          <th>Turno</th>
-          <th>Lunes</th>
-          <th>Martes</th>
-          <th>Miércoles</th>
-          <th>Jueves</th>
-          <th>Viernes</th>
+          <th className="px-4 py-2">Turno</th>
+          <th className="px-4 py-2">Lunes</th>
+          <th className="px-4 py-2">Martes</th>
+          <th className="px-4 py-2">Miércoles</th>
+          <th className="px-4 py-2">Jueves</th>
+          <th className="px-4 py-2">Viernes</th>
         </tr>
       </thead>
       <tbody>
         {horarioTabla.map((fila, turno) => (
           <tr key={turno}>
-            <td className="border p-3 m-2 border-slate-700">{turno + 1}</td>
+            <td className="border p-3 m- border-slate-700 text-center">{turno + 1}</td>
             {fila.map((clase, fecha) => (
               <td
-                className="border w-[125px] h-auto text-white border-slate-700"
+                className="border w-[150px] h-auto text-white border-slate-700"
                 key={fecha}
               >
                 <div className="w-full h-full flex items-center place-content-center">

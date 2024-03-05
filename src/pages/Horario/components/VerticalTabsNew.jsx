@@ -4,12 +4,15 @@ import {
   TabsBody,
   Tab,
   TabPanel,
+  Typography,
 } from "@material-tailwind/react";
 import React, { useState } from "react";
 import { HiChevronDoubleUp } from "react-icons/hi";
 import { HiChevronDoubleDown } from "react-icons/hi";
 import IconButton from "@mui/material/IconButton";
-import { Button } from "@mui/material";
+import { Button } from "@nextui-org/react";
+import {Chip} from "@nextui-org/react";
+import { HiOutlinePlusCircle } from "react-icons/hi";
 
 export function VerticalTabsNew({ asignaturas, setAsignaturaSeleccionada }) {
   const [visibleTabs, setVisibleTabs] = useState(0);
@@ -23,6 +26,19 @@ export function VerticalTabsNew({ asignaturas, setAsignaturaSeleccionada }) {
   };
   return (
     <div className=" flex flex-col">
+   <div className="flex flex-row gap-4 items-center content-center">
+   <div>
+   <h1 className="bg-sky-500  shadow-sky-500/50 rounded p-2 text-white shadow-lg btn-lg m-3 text-center flex items-center place-content-center">
+   Asignaturas
+   </h1>
+    </div>
+    <div>
+        <Button color="primary" variant="flat" startContent={ <HiOutlinePlusCircle />}>
+      Añadir
+      </Button>
+      </div>
+      </div>
+        
       <Tabs value={asignaturas[0]?.id} orientation="vertical">
         <TabsHeader className=" items-center content-center">
           <div>
