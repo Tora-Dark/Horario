@@ -57,6 +57,23 @@ export default function CreateClassModal({
     "warning",
     "danger",
   ];
+  const types = [
+    {
+      label: "C",
+      value: "c",
+      description: "Conferencia",
+    },
+    {
+      label: "PP",
+      value: "pp",
+      description: "Prueba Parcial",
+    },
+    { label: "T", value: "T", description: "Taller" },
+    { label: "S", value: "S", description: "Seminario" },
+    { label: "CP", value: "CP", description: "Clase Practica" },
+    { label: "NP", value: "NP", description: "No presencial" },
+    { label: "L", value: "L", description: "Laboratorio" },
+  ];
   const [variant, setvariant] = useState("underlined");
   const store = async (e) => {
     e.preventDefault();
@@ -87,13 +104,20 @@ export default function CreateClassModal({
               <ModalBody>
                 <form onSubmit={store} className="flex flex-col gap-4">
                   <div className="flex w-80 flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
-                    <Input
-                      type="text"
+                    <Select
+                      items={types}
+                      label="Type"
+                      placeholder="Select an type"
+                      className="max-w-xs"
                       variant="underlined"
-                      value={tipo}
                       onChange={(e) => setTipo(e.target.value)}
-                      label="Tipo"
-                    />
+                    >
+                      {(type) => (
+                        <SelectItem value={type.value} key={type.value}>
+                          {type.label}
+                        </SelectItem>
+                      )}
+                    </Select>
                   </div>
                   <div>
                     <Select
@@ -119,37 +143,37 @@ export default function CreateClassModal({
                     </Select>
                   </div>
                   <div>
-                  <div>
-                    <Select
-                      items={asignaturas}
-                      label="Asignaturas"
-                      placeholder="Select an asignatura"
-                      className="max-w-xs"
-                      variant="underlined"
-                      onChange={(e) => setAsignatura_id(e.target.value)}
-                    >
-                      {(asignatura) => (
-                        <SelectItem value={asignatura.id} key={asignatura.id}>
-                          {asignatura.nombre}
-                        </SelectItem>
-                      )}
-                    </Select>
-                   </div>
                     <div>
-                    <Select
-                      items={locales}
-                      label="Locales"
-                      placeholder="Select an local"
-                      className="max-w-xs"
-                      variant="underlined"
-                      onChange={(e) => setLocal(e.target.value)}
-                    >
-                      {(local) => (
-                        <SelectItem value={local.id} key={local.id}>
-                          {local.nombre}
-                        </SelectItem>
-                      )}
-                    </Select>
+                      <Select
+                        items={asignaturas}
+                        label="Asignaturas"
+                        placeholder="Select an asignatura"
+                        className="max-w-xs"
+                        variant="underlined"
+                        onChange={(e) => setAsignatura_id(e.target.value)}
+                      >
+                        {(asignatura) => (
+                          <SelectItem value={asignatura.id} key={asignatura.id}>
+                            {asignatura.nombre}
+                          </SelectItem>
+                        )}
+                      </Select>
+                    </div>
+                    <div>
+                      <Select
+                        items={locales}
+                        label="Locales"
+                        placeholder="Select an local"
+                        className="max-w-xs"
+                        variant="underlined"
+                        onChange={(e) => setLocal(e.target.value)}
+                      >
+                        {(local) => (
+                          <SelectItem value={local.id} key={local.id}>
+                            {local.nombre}
+                          </SelectItem>
+                        )}
+                      </Select>
                     </div>
                   </div>
                   <Button
@@ -163,9 +187,7 @@ export default function CreateClassModal({
                   </Button>
                 </form>
               </ModalBody>
-              <ModalFooter>
-                
-              </ModalFooter>
+              <ModalFooter></ModalFooter>
             </>
           )}
         </ModalContent>

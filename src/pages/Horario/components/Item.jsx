@@ -3,6 +3,7 @@ import { HiOutlinePlusCircle } from "react-icons/hi";
 import IconButton from "@mui/material/IconButton";
 import { useNavigate } from "react-router-dom";
 import CreateClassModal from "./CreateClassModal.jsx";
+import EditClassModal from "./EditClassModal.jsx";
 import {
   Tooltip,
   Button,
@@ -61,8 +62,8 @@ const Item = ({
         <div className="col-span-1 flex flex-col font-bold text-center">
           <div>
             <Tooltip
-            placement="right"
-            color=""
+              placement="right"
+              color=""
               delay={0}
               closeDelay={0}
               motionProps={{
@@ -90,8 +91,7 @@ const Item = ({
               }
             >
               <div className="ml-1 items-center content-center">
-                <Dropdown color="default"
-                 backdrop="opaque">
+                <Dropdown color="default" backdrop="opaque">
                   <DropdownTrigger>
                     <IconButton variant="bordered" size="small">
                       <HiCog />
@@ -103,6 +103,7 @@ const Item = ({
                         <HiOutlinePencilAlt className={iconClasses} />
                       }
                       key="edit"
+                      onClick={() => setIsModalOpen(true)}
                     >
                       Edit class
                     </DropdownItem>
@@ -115,8 +116,7 @@ const Item = ({
                       Move class
                     </DropdownItem>
                     <DropdownItem
-                      startContent={
-                        <HiOutlineTrash className={iconClasses} />}
+                      startContent={<HiOutlineTrash className={iconClasses} />}
                       key="delete"
                       className="text-danger"
                       color="danger"
@@ -155,7 +155,10 @@ const Item = ({
                 <div className="px-1 py-2">
                   <div className="text-small font-bold">Description</div>
                   <div className="text-tiny">
-                  <p>Class of {clase?.asignatura?.nombre} in {clase?.local?.nombre} </p>
+                    <p>
+                      Class of {clase?.asignatura?.nombre} in{" "}
+                      {clase?.local?.nombre}{" "}
+                    </p>
                   </div>
                 </div>
               }
@@ -168,7 +171,24 @@ const Item = ({
             </Tooltip>
           </div>
         </div>
+        <EditClassModal
+        clase={clase}
+        color={"bg-sky-300"}
+        turn={turn + 1}
+        fecha={fecha + 1}
+        isOpen={isModalOpen}
+        onOpen={onOpenModal}
+        onClose={onCloseModal}
+        brigadas={brigadas}
+        brigadaSeleccionada={brigadaSeleccionada}
+        asignaturas={asignaturas}
+        locales={locales}
+        semanasSeleccionada={semanasSeleccionada}
+        isCHanged={isCHanged}
+        setIsChanged={setIsChanged}
+      />
       </div>
+     
     </div>
   ) : (
     <div className="  flex items-center place-content-center transition-all m-2 w-full h-14">
