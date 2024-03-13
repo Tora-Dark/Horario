@@ -12,6 +12,7 @@ import {
   DropdownTrigger,
   DropdownItem,
 } from "@nextui-org/react";
+import axios from "axios";
 import {
   HiInformationCircle,
   HiCog,
@@ -34,9 +35,19 @@ const Item = ({
   isCHanged,
   setIsChanged,
 }) => {
+  const endpoint = "http://127.0.0.1:8000/api/clases";
   const navigate = useNavigate();
   const handleButtonClick = () => {
     navigate(`/createClase?turn=${turn + 1}&fecha=${fecha + 1}`);
+  };
+  const handleEliminarClase = async (id) => {
+    try {
+      await axios.delete(`${endpoint}/${id}`);
+      setIsChanged(true);
+      // Realiza cualquier otra acción necesaria después de eliminar la clase
+    } catch (error) {
+      console.error("Error al eliminar la clase:", error);
+    }
   };
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -118,6 +129,7 @@ const Item = ({
                     <DropdownItem
                       startContent={<HiOutlineTrash className={iconClasses} />}
                       key="delete"
+                      onClick={() => handleEliminarClase(clase?.id)} 
                       className="text-danger"
                       color="danger"
                     >
@@ -172,23 +184,24 @@ const Item = ({
           </div>
         </div>
         <EditClassModal
-        clase={clase}
-        color={"bg-sky-300"}
-        turn={turn + 1}
-        fecha={fecha + 1}
-        isOpen={isModalOpen}
-        onOpen={onOpenModal}
-        onClose={onCloseModal}
-        brigadas={brigadas}
-        brigadaSeleccionada={brigadaSeleccionada}
-        asignaturas={asignaturas}
-        locales={locales}
-        semanasSeleccionada={semanasSeleccionada}
-        isCHanged={isCHanged}
-        setIsChanged={setIsChanged}
-      />
+          clase={clase}
+          color={"bg-sky-300"}
+          turn={turn + 1}
+          fecha={fecha + 1}
+          isOpen={isModalOpen}
+          onOpen={onOpenModal}
+          onClose={onCloseModal}
+          brigadas={brigadas}
+          brigadaSeleccionada={brigadaSeleccionada}
+          asignaturas={asignaturas}
+          locales={locales}
+          semanasSeleccionada={semanasSeleccionada}
+          isCHanged={isCHanged}
+          setIsChanged={setIsChanged}
+          localEdit={clase.local.id}
+          asignaturaEdit={`${clase.asignatura.id}`}
+        />
       </div>
-     
     </div>
   ) : (
     <div className="  flex items-center place-content-center transition-all m-2 w-full h-14">

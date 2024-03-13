@@ -35,11 +35,13 @@ export default function AssigmentBar({
         variant="scrollable"
         value={value}
         onChange={handleChange}
+        className="transition-all"  
         aria-label="Vertical tabs example"
         sx={{ borderRight: 1, borderColor: "divider" }}
       >
         {asignaturas.map((asignatura) => (
           <Tab
+          className="transition-all"
             label={asignatura?.nombre}
             value={asignatura?.id}
             key={asignatura?.id}

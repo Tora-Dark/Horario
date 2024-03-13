@@ -31,17 +31,18 @@ export default function EditClassModal({
   semanasSeleccionada,
   isCHanged,
   setIsChanged,
+  localEdit,
+  asignaturaEdit,
 }) {
-  const [tipo, setTipo] = useState("");
+  const [tipo, setTipo] = useState(clase.tipo);
   const [turno, setTurn] = useState(turn);
   const [dia, setFecha] = useState(fecha);
-  const [local_id, setLocal] = useState("");
-  const [asignatura_id, setAsignatura_id] = useState("");
+  const [local_id, setLocal] = useState(localEdit);
+  const [asignatura_id, setAsignatura_id] = useState(asignaturaEdit);
   const [brigadasSeleccionadas, setbrigadasSeleccionadas] = useState([]);
   const [backdrop, setBackdrop] = React.useState("opaque");
   const [variant, setvariant] = useState("underlined");
   const backdrops = ["opaque", "blur", "transparent"];
-
   const colors = [
     "default",
     "primary",
@@ -53,12 +54,12 @@ export default function EditClassModal({
   const types = [
     {
       label: "C",
-      value: "c",
+      value: "C",
       description: "Conferencia",
     },
     {
       label: "PP",
-      value: "pp",
+      value: "PP",
       description: "Prueba Parcial",
     },
     { label: "T", value: "T", description: "Taller" },
@@ -68,6 +69,7 @@ export default function EditClassModal({
     { label: "L", value: "L", description: "Laboratorio" },
   ];
 
+  const navigate = useNavigate();
   const update = async (e) => {
     e.preventDefault();
 
@@ -98,6 +100,7 @@ export default function EditClassModal({
                   <div className="flex w-80 flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
                     <Select
                       items={types}
+                      defaultSelectedKeys={[`${clase.tipo}`]}
                       label="Type"
                       placeholder="Select an type"
                       className="max-w-xs"
@@ -139,6 +142,7 @@ export default function EditClassModal({
                       <Select
                         items={asignaturas}
                         label="Asignaturas"
+                        defaultSelectedKeys={[`${asignaturaEdit}`]}
                         placeholder="Select an asignatura"
                         className="max-w-xs"
                         variant="underlined"
@@ -155,6 +159,7 @@ export default function EditClassModal({
                       <Select
                         items={locales}
                         label="Locales"
+                        defaultSelectedKeys={[`${localEdit}`]}
                         placeholder="Select an local"
                         className="max-w-xs"
                         variant="underlined"
