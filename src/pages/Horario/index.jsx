@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import Item from "./components/Item.jsx";
 import CenteredTabs from "./components/CenteredTabs.jsx";
 import TabPanel from "./components/VerticalTabs.jsx";
-import AssigmentBar from "./components/AssigmentBar.jsx";
-
 import { NextUIProvider } from "@nextui-org/react";
-
 import { VerticalTabsNew } from "./components/VerticalTabsNew.jsx";
-import Modal from "./components/CreateClassModal.jsx";
 import Button from "@mui/material/Button";
-import BasicModal from "./components/CreateClassModal.jsx";
+import CreateClassModal from "./components/CreateClassModal.jsx";
 
 const apiURL = "http://127.0.0.1:8000/api";
 // const apiURL = import.meta.env.VITE_API_URL;
@@ -106,9 +100,10 @@ export default function Horario() {
         `${apiURL}/horarios/${semanasSeleccionada}`
       );
       setClases(response.data.clases);
-      console.log("////");
-      console.log(response.data);
-      console.log("////");
+
+      // console.log("////");
+      //console.log(response.data);
+      // console.log("////");
     } catch (err) {
       console.log(`error: ${err}`);
       setIsLoading(false);
@@ -165,6 +160,7 @@ export default function Horario() {
 
       clases.forEach((clase) => {
         const { fecha, turn, tipo, brigadas } = clase;
+        //console.log(clase)
         //Mostrar las clases segun la brigada seleccionda
         brigadas.map((brigada) => {
           // Asegurarse de que los índices fecha y turn estén en el rango correcto
@@ -200,53 +196,56 @@ export default function Horario() {
 
   return (
     <>
-      <div className="flex-col items-center  place-content-center">
-        <CenteredTabs
-          brigadas={brigadas}
-          brigadaSeleccionada={brigadaSeleccionada}
-          setBrigadaSeleccionada={setBrigadaSeleccionada}
-        />
+      {" "}
+      <div className="flex flex-row items-center place-content-center">
+        <div className="flex-col items-center  place-content-center">
+          <CenteredTabs
+            brigadas={brigadas}
+            brigadaSeleccionada={brigadaSeleccionada}
+            setBrigadaSeleccionada={setBrigadaSeleccionada}
+          />
 
-        <div className=" flex flex-row items-center place-content-center">
-          <div className="items-center place-content-center p-6 w-1/7">
-            <h1 className="bg-sky-500  shadow-sky-500/50 rounded p-2 text-white shadow-lg btn-lg m-3 text-center flex items-center place-content-center">
-              Semanas
-            </h1>
-            <TabPanel
-              semanas={semanas}
-              semanasSeleccionada={semanasSeleccionada}
-              setSemanasSeleccionada={setSemanasSeleccionada}
-            />
-          </div>
-          <div className="mt-4">
-            <HorarioTabla
-              horarioTabla={horarioTabla}
-              brigadas={brigadas}
-              brigadaSeleccionada={brigadaSeleccionada}
-              asignaturas={asignaturas}
-              locales={locales}
-              semanasSeleccionada={semanasSeleccionada}
-              isCHanged={isCHanged}
-              setIsChanged={setIsChanged}
-            />
-          </div>
-          <div className="items-center place-content-center p-3  w-72">
-            {asignaturas?.length <= 0 ? (
-              <></>
-            ) : (
-              <VerticalTabsNew
-                asignaturas={asignaturas}
-                setAsignaturaSeleccionada={setAsignaturaSeleccionada}
+          <div className=" flex flex-row items-center place-content-center">
+            <div className="items-center place-content-center p-6 w-1/7">
+              <h1 className="bg-slate-300  shadow-slate-700 rounded p-2 text-slate-700 shadow-sm m-3 text-center flex items-center place-content-center">
+                SEMANAS
+              </h1>
+              <TabPanel
+                semanas={semanas}
+                semanasSeleccionada={semanasSeleccionada}
+                setSemanasSeleccionada={setSemanasSeleccionada}
               />
-            )}{" "}
+            </div>
+            <div className="mt-4">
+              <HorarioTabla
+                horarioTabla={horarioTabla}
+                brigadas={brigadas}
+                brigadaSeleccionada={brigadaSeleccionada}
+                asignaturas={asignaturas}
+                locales={locales}
+                semanasSeleccionada={semanasSeleccionada}
+                isCHanged={isCHanged}
+                setIsChanged={setIsChanged}
+              />
+            </div>
+            <div className="items-center place-content-center p-3  w-72">
+              {asignaturas?.length <= 0 ? (
+                <></>
+              ) : (
+                <VerticalTabsNew
+                  asignaturas={asignaturas}
+                  setAsignaturaSeleccionada={setAsignaturaSeleccionada}
+                />
+              )}{" "}
+            </div>
           </div>
         </div>
+        <CreateClassModal
+          isOpen={isModalOpen}
+          onOpen={onOpenModal}
+          onClose={onCloseModal}
+        />
       </div>
-      <BasicModal
-        isOpen={isModalOpen}
-        onOpen={onOpenModal}
-        onClose={onCloseModal}
-      />
     </>
   );
 }
@@ -264,7 +263,7 @@ export function HorarioTabla({
   setIsChanged,
 }) {
   return (
-    <table className="border-collapse border table-auto md:table-fixed border-slate-500 shadow-lg ">
+    <table className="border-collapse border  table-auto md:table-fixed border-slate-500 shadow-lg ">
       <thead className="border bg-slate-800 h-10 text-white border-slate-600 ">
         <tr>
           <th className="px-4 py-2">Turno</th>
@@ -278,7 +277,9 @@ export function HorarioTabla({
       <tbody>
         {horarioTabla.map((fila, turno) => (
           <tr key={turno}>
-            <td className="border p-3 m- border-slate-700 text-center">{turno + 1}</td>
+            <td className="border p-3 m- border-slate-700 text-center">
+              {turno + 1}
+            </td>
             {fila.map((clase, fecha) => (
               <td
                 className="border w-[150px] h-auto text-white border-slate-700"
@@ -287,7 +288,7 @@ export function HorarioTabla({
                 <div className="w-full h-full flex items-center place-content-center">
                   <Item
                     clase={clase}
-                    color={"bg-sky-300"}
+                    color={clase?.asignatura?.color}
                     turn={turno}
                     fecha={fecha}
                     brigadas={brigadas}

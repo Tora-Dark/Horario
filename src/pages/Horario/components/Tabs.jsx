@@ -26,7 +26,7 @@ const Tabs = ({
   return (
     <div className="flex flex-col mx-5 px-3 md:flex-row">
       <div className="flex flex-col items-center w-60 md:w-1/4">
-        <h3 className="bg-sky-500 mt-16 shadow-sky-500/50 rounded p-2 text-white shadow-lg btn-lg m-3 text-center flex items-center place-content-center">
+        <h3 className="bg-red-300 mt-16 shadow-sm shadow-slate-900 rounded p-2 text-white  m-3 text-center flex items-center place-content-center">
           Asignaturas
         </h3>
         <IconButton onClick={handleUp}>

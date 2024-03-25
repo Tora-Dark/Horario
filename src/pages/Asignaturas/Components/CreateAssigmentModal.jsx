@@ -13,42 +13,39 @@ import {
 } from "@nextui-org/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-const endpoint = "http://127.0.0.1:8000/api/clases";
+const endpoint = "http://127.0.0.1:8000/api/asignaturas";
 import axios from "axios";
 import { HiTemplate } from "react-icons/hi";
-export default function CreateClassModal({
+
+const CreateAssigmentModal = ({
   isOpen,
   onOpen,
   onClose,
-  clase,
-  color,
-  turn,
-  fecha,
-  brigadas,
-  brigadaSeleccionada,
-  asignaturas,
-  locales,
-  semanasSeleccionada,
   isCHanged,
   setIsChanged,
-}) {
-  const [tipo, setTipo] = useState("");
-  const [turno, setTurn] = useState(turn);
-  const [dia, setFecha] = useState(fecha);
-  const [local_id, setLocal] = useState("");
-  const [asignatura_id, setAsignatura_id] = useState("");
-  const [brigadasSeleccionadas, setbrigadasSeleccionadas] = useState([]);
+}) => {
+  const[nombre,setNombre]=useState("");
+  const[siglas,setSiglas]=useState("");
   const [coulor, setcoulor] = useState("");
-  const navigate = useNavigate();
-  // const { isOpen, onOpen, onClose } = useDisclosure();
   const [backdrop, setBackdrop] = React.useState("opaque");
-
   const backdrops = ["opaque", "blur", "transparent"];
-
   const handleOpen = (backdrop) => {
     setBackdrop(backdrop);
     onOpen();
   };
+  const [variant, setvariant] = useState("underlined");
+  const store = async (e) => {
+    e.preventDefault();
+
+    await axios.post(endpoint, {
+      nombre: nombre,
+      siglas: siglas,
+      color: coulor,
+    });
+
+    setIsChanged(true);
+  };
+
   const colors = [
     {
       label: "Slate",
@@ -57,7 +54,7 @@ export default function CreateClassModal({
     },
     {
       label: "Gray",
-      value:"bg-gray-300",
+      value: "bg-gray-300",
       description: "text-gray-300",
     },
     {
@@ -156,42 +153,6 @@ export default function CreateClassModal({
       description: "text-rose-300",
     },
   ];
-  const types = [
-    {
-      label: "C",
-      value: "C",
-      description: "Conferencia",
-    },
-    {
-      label: "PP",
-      value: "PP",
-      description: "Prueba Parcial",
-    },
-    { label: "T", value: "T", description: "Taller" },
-    { label: "S", value: "S", description: "Seminario" },
-    { label: "CP", value: "CP", description: "Clase Practica" },
-    { label: "NP", value: "NP", description: "No presencial" },
-    { label: "L", value: "L", description: "Laboratorio" },
-    {label: "----", value: "----", description: "----"}
-  ];
-  const [variant, setvariant] = useState("underlined");
-  const store = async (e) => {
-    e.preventDefault();
-
-    await axios.post(endpoint, {
-      tipo: tipo,
-      turn: turno,
-      fecha: dia,
-      asignatura_id: asignatura_id,
-      local_id: local_id,
-      brigadas: brigadasSeleccionadas.split(",").map(Number),
-      semana: semanasSeleccionada,
-      color: coulor,
-    });
-
-    setIsChanged(true);
-    navigate("/");
-  };
 
   return (
     <>
@@ -205,20 +166,7 @@ export default function CreateClassModal({
               <ModalBody>
                 <form onSubmit={store} className="flex flex-col gap-4">
                   <div className="flex w-80 flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
-                    <Select
-                      items={types}
-                      label="Type"
-                      placeholder="Select an type"
-                      className="max-w-xs"
-                      variant="underlined"
-                      onChange={(e) => setTipo(e.target.value)}
-                    >
-                      {(type) => (
-                        <SelectItem value={type.value} key={type.value}>
-                          {type.description}
-                        </SelectItem>
-                      )}
-                    </Select>
+                   <Input type="text" variant={variant} onChange={(e) => setNombre(e.target.value)} label="Nombre" placeholder="Enter the Assigment name" />
                   </div>
                   <div className="flex w-80 flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
                     <Select
@@ -243,60 +191,9 @@ export default function CreateClassModal({
                     </Select>
                   </div>
                   <div>
-                    <Select
-                      items={brigadas}
-                      label="Brigadas"
-                      placeholder="Select an brigade"
-                      className="max-w-xs"
-                      selectionMode="multiple"
-                      variant="underlined"
-                      onChange={(e) => {
-                        {
-                          setbrigadasSeleccionadas(e.target.value);
-                          console.log(brigadasSeleccionadas);
-                        }
-                      }}
-                      value={brigadasSeleccionadas}
-                    >
-                      {(brigada) => (
-                        <SelectItem value={brigada.id} key={brigada.id}>
-                          {brigada.nombre}
-                        </SelectItem>
-                      )}
-                    </Select>
-                  </div>
-
-                  <div>
-                    <Select
-                      items={asignaturas}
-                      label="Asignaturas"
-                      placeholder="Select an asignatura"
-                      className="max-w-xs"
-                      variant="underlined"
-                      onChange={(e) => setAsignatura_id(e.target.value)}
-                    >
-                      {(asignatura) => (
-                        <SelectItem value={asignatura.id} key={asignatura.id}>
-                          {asignatura.nombre}
-                        </SelectItem>
-                      )}
-                    </Select>
-                  </div>
-                  <div>
-                    <Select
-                      items={locales}
-                      label="Locales"
-                      placeholder="Select an local"
-                      className="max-w-xs"
-                      variant="underlined"
-                      onChange={(e) => setLocal(e.target.value)}
-                    >
-                      {(local) => (
-                        <SelectItem value={local.id} key={local.id}>
-                          {local.nombre}
-                        </SelectItem>
-                      )}
-                    </Select>
+                  <div className="flex w-80 flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
+                  <Input type="text" variant={variant} onChange={(e) => setSiglas(e.target.value)} label="Siglas" placeholder="Enter the Assigment siglas" />
+                 </div>
                   </div>
 
                   <Button
@@ -316,19 +213,7 @@ export default function CreateClassModal({
         </ModalContent>
       </Modal>
     </>
-  );
-}
+  )
+};
 
-// <div className="flex flex-wrap gap-3">
-// {backdrops.map((b) => (
-//   <Button
-//     key={b}
-//     variant="flat"
-//     color="warning"
-//     onPress={() => handleOpen(b)}
-//     className="capitalize"
-//   >
-//    {b}
-//   </Button>
-// ))}
-// </div>
+export default CreateAssigmentModal;

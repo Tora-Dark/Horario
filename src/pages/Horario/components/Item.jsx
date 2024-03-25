@@ -65,7 +65,7 @@ const Item = ({
       <div className="grid grid-cols-4">
         <div className="col-span-3 flex flex-col w-full h-full  border-slate-700">
           <div className="flex justify-evenly">
-            <h2>{clase?.asignatura?.nombre}</h2>
+            <h2>{clase?.asignatura?.siglas}</h2>
             <h2>{clase?.tipo}</h2>
           </div>
           <h2 className="text-center">{clase?.local?.nombre}</h2>
@@ -105,7 +105,8 @@ const Item = ({
                 <Dropdown color="default" backdrop="opaque">
                   <DropdownTrigger>
                     <IconButton variant="bordered" size="small">
-                      <HiCog />
+                      {/* Descomentar la linea de abajo una vez se haya mandado el horario a los alumnos para seguir con el Desarrollo y comentarla cuando se vaya a enviar */}
+                      {/*<HiCog />*/}
                     </IconButton>
                   </DropdownTrigger>
                   <DropdownMenu variant="faded" aria-label="Static Actions">
@@ -129,7 +130,7 @@ const Item = ({
                     <DropdownItem
                       startContent={<HiOutlineTrash className={iconClasses} />}
                       key="delete"
-                      onClick={() => handleEliminarClase(clase?.id)} 
+                      onClick={() => handleEliminarClase(clase?.id)}
                       className="text-danger"
                       color="danger"
                     >
@@ -177,7 +178,8 @@ const Item = ({
             >
               <div className="ml-1 items-center content-center">
                 <IconButton aria-label="" size="small">
-                  <HiInformationCircle />
+                  {/* Descomentar la linea de abajo una vez se haya mandado el horario a los alumnos para seguir con el Desarrollo y comentarla cuando se vaya a enviar */}
+                  {/* <HiInformationCircle  /> */}
                 </IconButton>
               </div>
             </Tooltip>
@@ -185,7 +187,7 @@ const Item = ({
         </div>
         <EditClassModal
           clase={clase}
-          color={"bg-sky-300"}
+          colorEdit={color}
           turn={turn + 1}
           fecha={fecha + 1}
           isOpen={isModalOpen}
@@ -206,11 +208,11 @@ const Item = ({
   ) : (
     <div className="  flex items-center place-content-center transition-all m-2 w-full h-14">
       <IconButton aria-label="" onClick={() => setIsModalOpen(true)}>
-        <HiOutlinePlusCircle />
+        {/* <HiOutlinePlusCircle /> */}
       </IconButton>
       <CreateClassModal
         clase={clase}
-        color={"bg-sky-300"}
+        color={color}
         turn={turn + 1}
         fecha={fecha + 1}
         isOpen={isModalOpen}

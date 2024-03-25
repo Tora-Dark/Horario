@@ -28,8 +28,8 @@ export function VerticalTabsNew({ asignaturas, setAsignaturaSeleccionada }) {
     <div className=" flex flex-col">
    <div className="flex flex-row gap-4 items-center content-center">
    <div>
-   <h1 className="bg-sky-500  shadow-sky-500/50 rounded p-2 text-white shadow-lg btn-lg m-3 text-center flex items-center place-content-center">
-   Asignaturas
+   <h1 className="bg-slate-300  shadow-slate-700 rounded p-2 text-slate-700 shadow-sm   text-center flex items-center place-content-center">
+   ASIGNATURAS
    </h1>
     </div>
     <div>
@@ -58,7 +58,7 @@ export function VerticalTabsNew({ asignaturas, setAsignaturaSeleccionada }) {
                   }}
                   className="h-12 w-28 m-2 "
                 >
-                  {asignatura?.nombre}
+                  {asignatura?.siglas}
                 </Tab>
               ))}
           </div>
