@@ -253,7 +253,6 @@ export default function CreateClassModal({
                       onChange={(e) => {
                         {
                           setbrigadasSeleccionadas(e.target.value);
-                          console.log(brigadasSeleccionadas);
                         }
                       }}
                       value={brigadasSeleccionadas}

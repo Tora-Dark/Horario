@@ -14,7 +14,6 @@ export default function CenteredTabs({
 
   const handleChange = (event, newValue) => {
     setBrigadaSeleccionada(newValue);
-    console.log(newValue);
     setvalue(newValue);
   };
 

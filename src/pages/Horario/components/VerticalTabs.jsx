@@ -14,7 +14,6 @@ export default function VerticalTabs({
 
   const handleChange = (event, newValue) => {
     setSemanasSeleccionada(newValue);
-    console.log(newValue);
     setValue(newValue);
   };
 

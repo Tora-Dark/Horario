@@ -28,19 +28,20 @@ export default function TopNavbar() {
 
   const isActive = (href) => location.pathname === href;
   return (
-    <>
+    <div className="bg-white h-full border flex shadow-md ">
       <Listbox
-        variant="faded"
+      className="w-52"
+        variant="shadow"
         disallowEmptySelection
         selectionMode="single"
         autoFocus="boolean"
-        color="danger"
+        color="default"
         aria-label="Navigation"
       >
         <ListboxItem
           key="horario"
           textValue="horario"
-          className={`text-white ${isActive("/horario") ? "bg-slate-700 text-slate-300" : ""}`}
+          className={` ${isActive("/horario") ? "bg-slate-700 text-slate-300" : ""}`}
       
           href="/horario"
         >
@@ -54,7 +55,7 @@ export default function TopNavbar() {
         <ListboxItem
           key="asignaturas"
           textValue="asignaturas"
-          className={`text-white ${isActive("/asignaturas") ? "bg-slate-700 text-slate-300" : ""}`}
+          className={` ${isActive("/asignaturas") ? "bg-neutral-300 text-slate-800" : ""}`}
           href="/asignaturas"
         >
           <div className="flex flex-raw text-large  content-center items-center gap-2">
@@ -67,7 +68,7 @@ export default function TopNavbar() {
         <ListboxItem
           textValue="cursos"
           key="cursos"
-          className={`text-white ${isActive("/horario") ? "bg-slate-700 text-slate-300" : ""}`}
+          className={` ${isActive("/cursos") ? "bg-slate-700 text-slate-300" : ""}`}
           href="/cursos"
         >
           <div className="flex flex-raw text-large  content-center items-center gap-2">
@@ -80,7 +81,7 @@ export default function TopNavbar() {
         <ListboxItem
           textValue="locales"
           key="locales"
-          className={`text-white ${isActive("/horario") ? "bg-slate-700 text-slate-300" : ""}`}
+          className={` ${isActive("/locales") ? "bg-slate-500 text-slate-300" : ""}`}
           href="/locales"
         >
           <div className="flex flex-raw text-large  content-center items-center gap-2">
@@ -93,7 +94,7 @@ export default function TopNavbar() {
         <ListboxItem
           textValue="brigadas"
           key="brigadas"
-          className="text-white text-large"
+          className=" text-large"
           href="/brigadas"
         >
           <div className="flex flex-raw text-large  content-center items-center gap-2">
@@ -106,7 +107,7 @@ export default function TopNavbar() {
         <ListboxItem
           textValue="otros"
           key="otros"
-          className="text-white text-large"
+          className=" text-large"
           href="/"
         >
           <div className="flex flex-raw text-large  content-center items-center gap-2">
@@ -117,6 +118,6 @@ export default function TopNavbar() {
           </div>
         </ListboxItem>
       </Listbox>
-    </>
+    </div>
   );
 }

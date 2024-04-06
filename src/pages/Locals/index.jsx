@@ -27,85 +27,62 @@ import { HiOutlinePencil, HiPencilAlt, HiTrash } from "react-icons/hi";
 import { HiOutlineEye } from "react-icons/hi";
 import { HiCube } from "react-icons/hi";
 import { HiOutlinePlusCircle } from "react-icons/hi";
-const endpoint = "http://127.0.0.1:8000/api/asignaturas";
-
-const iconClasses =
-  "text-xl text-default-500 pointer-events-none flex-shrink-0";
-
-import axios from "axios";
-import CreateAssigmentModal from "./Components/CreateAssigmentModal";
-import EditAssigmentModal from "./Components/EditAssigmentModal";
+const iconClasses = "text-xl  pointer-events-none flex-shrink-0";
 const apiURL = "http://127.0.0.1:8000/api";
 
+import axios from "axios";
+//import CreateBrigadaModal from "./CreateBrigadaModal";
+//import EditBrigadaModal from "./EditBrigadaModal";
 const columns = [
   { name: "NOMBRE", uid: "nombre" },
-  { name: "SIGLAS", uid: "siglas" },
-  { name: "COLOR", uid: "color" },
   { name: "ACTIONS", uid: "actions" },
 ];
-export default function AsignaturaTable() {
-  const [asignaturas, setAsignaturas] = useState([]);
+
+const LoacalsTable = () => {
+  const [locales, setLocales] = useState([]);
   const [isCHanged, setIsChanged] = useState(false);
-  const [coulor, setcoulor] = useState("");
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditModalOpen, setisEditModalOpen] = useState(false);
-  const [asignaturaEdit, setasignaturaEdit] = useState([]);
+  const [localEdit, setLocalEdit] = useState([]);
   const onOpenModal = () => {};
   const onCloseModal = () => {
     setIsCreateModalOpen(false);
     setisEditModalOpen(false);
   };
-
-  const handlebutton = (asignatura) => {
+  const handlebutton = (local) => {
     setisEditModalOpen(true);
-    setasignaturaEdit(asignatura);
+    setLocalEdit(local);
   };
 
-  const getAsignaturas = async () => {
+  const getlocales = async () => {
     try {
-      const response = await axios.get(`${apiURL}/asignaturas`);
-      setAsignaturas(response.data);
+      const response = await axios.get(`${apiURL}/locales `);
+      setLocales(response.data);
       setIsChanged(false);
     } catch (err) {
       console.log(`error: ${err}`);
     }
   };
   useEffect(() => {
-    getAsignaturas();
+    getlocales();
   }, [isCHanged]);
-  const handleEliminarAsignatura = async (id) => {
+  const handleEliminarlocales = async (id) => {
     try {
-      await axios.delete(`${endpoint}/${id}`);
+      await axios.delete(`${apiURL}/locales/${id}`);
       setIsChanged(true);
       // Realiza cualquier otra acción necesaria después de eliminar la clase
     } catch (error) {
-      console.error("Error al eliminar la clase:", error);
+      console.error("Error al eliminar la local:", error);
     }
   };
 
-  const renderCell = React.useCallback((asignatura, columnKey) => {
-    const cellValue = asignatura[columnKey];
+  const renderCell = React.useCallback((local, columnKey) => {
+    const cellValue = local[columnKey];
     switch (columnKey) {
       case "nombre":
         return (
           <>
-            <h2>{asignatura.nombre}</h2>
-          </>
-        );
-      case "siglas":
-        return (
-          <div className="flex flex-col">
-            <p className="text-bold text-sm capitalize">{cellValue}</p>
-          </div>
-        );
-      case "color":
-        return (
-          <>
-            {
-              <Chip className={`${cellValue} ` + "border shadow-md"} size="sm">
-                {cellValue}
-              </Chip>
-            }
+            <h2>{local.nombre}</h2>
           </>
         );
       case "actions":
@@ -125,9 +102,9 @@ export default function AsignaturaTable() {
                       <HiOutlinePencilAlt className={iconClasses} />
                     }
                     key="edit"
-                    onClick={() => handlebutton(asignatura)}
+                    onClick={() => handlebutton(local)}
                   >
-                    Edit assigment
+                    Edit local
                   </DropdownItem>
                   {/*  <DropdownItem
                     startContent={
@@ -140,11 +117,11 @@ export default function AsignaturaTable() {
                   <DropdownItem
                     startContent={<HiOutlineTrash className={iconClasses} />}
                     key="delete"
-                    onClick={() => handleEliminarAsignatura(asignatura?.id)}
+                    onClick={() => handleEliminarlocales(local?.id)}
                     className="text-danger"
                     color="danger"
                   >
-                    Delete assigment
+                    Delete local
                   </DropdownItem>
                 </DropdownMenu>
               </Dropdown>
@@ -159,11 +136,10 @@ export default function AsignaturaTable() {
   return (
     <div className="flex flex-col items-center content-center align-middle w-full h-full mx-5">
       <div className="flex flex-row items-center justify-between w-full py-4">
-        <h2 className="text-lg font-bold">Asignaturas:</h2>
+        <h2 className="text-lg font-bold">Locales:</h2>
         <Button
           color="primary"
-          variant="ghost"
-          className="text-lg"
+          variant="flat"
           startContent={<HiOutlinePlusCircle />}
           onClick={() => setIsCreateModalOpen(true)}
         >
@@ -180,7 +156,7 @@ export default function AsignaturaTable() {
               <TableColumn key={column.uid}>{column.name}</TableColumn>
             )}
           </TableHeader>
-          <TableBody items={asignaturas}>
+          <TableBody items={locales}>
             {(item) => (
               <TableRow key={item.id}>
                 {(columnKey) => (
@@ -191,20 +167,22 @@ export default function AsignaturaTable() {
           </TableBody>
         </Table>
       </div>
-      <CreateAssigmentModal
-        isOpen={isCreateModalOpen}
-        onOpen={onOpenModal}
-        onClose={onCloseModal}
-        isCHanged={isCHanged}
-        setIsChanged={setIsChanged}
-      />
+      {
+     /*  <CreateBrigadaModal
+          isOpen={isCreateModalOpen}
+          onOpen={onOpenModal}
+          onClose={onCloseModal}
+          isCHanged={isCHanged}
+          setIsChanged={setIsChanged}
+        />  */
+      }
       {isEditModalOpen ? (
-        <EditAssigmentModal
+        <EditBrigadaModal
           isOpen={isEditModalOpen}
           onOpen={onOpenModal}
           onClose={onCloseModal}
           isCHanged={isCHanged}
-          asignaturaedit={asignaturaEdit}
+          localEdit={localEdit}
           setIsChanged={setIsChanged}
         />
       ) : (
@@ -212,4 +190,6 @@ export default function AsignaturaTable() {
       )}
     </div>
   );
-}
+};
+
+export default LoacalsTable;

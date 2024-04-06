@@ -263,7 +263,7 @@ export function HorarioTabla({
   setIsChanged,
 }) {
   return (
-    <table className="border-collapse border  table-auto md:table-fixed border-slate-500 shadow-lg ">
+    <table className="border-collapse border bg-white table-auto md:table-fixed border-slate-500 shadow-lg ">
       <thead className="border bg-slate-800 h-10 text-white border-slate-600 ">
         <tr>
           <th className="px-4 py-2">Turno</th>

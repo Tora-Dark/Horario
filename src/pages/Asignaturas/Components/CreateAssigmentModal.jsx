@@ -161,7 +161,7 @@ const CreateAssigmentModal = ({
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                Agregar Clase
+                Agregar Asignatura
               </ModalHeader>
               <ModalBody>
                 <form onSubmit={store} className="flex flex-col gap-4">

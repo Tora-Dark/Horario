@@ -106,7 +106,7 @@ const Item = ({
                   <DropdownTrigger>
                     <IconButton variant="bordered" size="small">
                       {/* Descomentar la linea de abajo una vez se haya mandado el horario a los alumnos para seguir con el Desarrollo y comentarla cuando se vaya a enviar */}
-                      {/*<HiCog />*/}
+                      {<HiCog />}
                     </IconButton>
                   </DropdownTrigger>
                   <DropdownMenu variant="faded" aria-label="Static Actions">
@@ -169,7 +169,7 @@ const Item = ({
                   <div className="text-small font-bold">Description</div>
                   <div className="text-tiny">
                     <p>
-                      Class of {clase?.asignatura?.nombre} in{" "}
+                      {clase?.tipo} of {clase?.asignatura?.nombre} in{" "}
                       {clase?.local?.nombre}{" "}
                     </p>
                   </div>
@@ -179,7 +179,7 @@ const Item = ({
               <div className="ml-1 items-center content-center">
                 <IconButton aria-label="" size="small">
                   {/* Descomentar la linea de abajo una vez se haya mandado el horario a los alumnos para seguir con el Desarrollo y comentarla cuando se vaya a enviar */}
-                  {/* <HiInformationCircle  /> */}
+                  {<HiInformationCircle  />}
                 </IconButton>
               </div>
             </Tooltip>
@@ -208,7 +208,7 @@ const Item = ({
   ) : (
     <div className="  flex items-center place-content-center transition-all m-2 w-full h-14">
       <IconButton aria-label="" onClick={() => setIsModalOpen(true)}>
-        {/* <HiOutlinePlusCircle /> */}
+        {<HiOutlinePlusCircle />}
       </IconButton>
       <CreateClassModal
         clase={clase}
