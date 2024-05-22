@@ -4,12 +4,11 @@ import Item from "./components/Item.jsx";
 import CenteredTabs from "./components/CenteredTabs.jsx";
 import TabPanel from "./components/VerticalTabs.jsx";
 import { Button } from "@nextui-org/react";
-import { NextUIProvider } from "@nextui-org/react";
 import CreateClassModal from "./components/CreateClassModal.jsx";
 import { HiOutlinePlusCircle } from "react-icons/hi";
 
 import { Spinner } from "@nextui-org/react";
-import { toast } from "react-toastify";
+import BalanceBar from "./components/BalanaceBar.jsx";
 const apiURL = "http://127.0.0.1:8000/api";
 // const apiURL = import.meta.env.VITE_API_URL;
 const horarioInicial = [
@@ -23,7 +22,6 @@ const horarioInicial = [
 
 const semanaInicial = 1;
 const inicialBrigada = 0;
-
 export default function Horario() {
   const [isLoading, setIsLoading] = useState(true);
   //Todas las clases de una semana
@@ -40,6 +38,9 @@ export default function Horario() {
   const [brigadas, setBrigadas] = useState([]);
   const [brigadaSeleccionada, setBrigadaSeleccionada] = useState(9);
 
+  //Arreglo cone el balance de carga
+  const [balances, setBalances] = useState([]);
+
   //Arreglo con todas las asignaturas
   const [asignaturas, setAsignaturas] = useState([]);
   const [asignaturaSeleccionada, setAsignaturaSeleccionada] = useState(
@@ -52,10 +53,12 @@ export default function Horario() {
 
   //semana para agregar
   const [semana, setSemena] = useState("");
+
   //se cambian las clases
   const [isCHanged, setIsChanged] = useState(false);
   //se cambian las semanas
   const [isSemanaChanged, setIsSemanaChanged] = useState(false);
+  const [isBalanceChanged, setIsBalanceChanged] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const onOpenModal = () => {};
@@ -67,9 +70,9 @@ export default function Horario() {
     try {
       const response = await axios.get(`${apiURL}/horarios`);
       setSemanas(response.data);
-      return response.data
+      return response.data;
     } catch (error) {
-      console.log(`error: ${err}`);
+      console.log(`error: ${error}`);
     }
   };
   const getMatriz = async () => {
@@ -94,7 +97,7 @@ export default function Horario() {
       const brigadas = response?.data;
       setBrigadas(brigadas);
       setBrigadaSeleccionada(brigadas[0]?.id);
-      return brigadas[0]
+      return brigadas[0];
     } catch (err) {
       console.log(`error: ${err}`);
     }
@@ -108,9 +111,19 @@ export default function Horario() {
       console.log(`error: ${err}`);
     }
   };
+  const getBalances = async () => {
+    try {
+      const response = await axios.get(
+        `${apiURL}/balance_de_carga/${semanasSeleccionada}`
+      );
+      setBalances(response.data);
+    } catch (err) {
+      console.log(`error: ${err}`);
+    }
+  };
 
   //Trae todas las clases de la semana seleccionada
-  const getAllClases = async (b,s) => {
+  const getAllClases = async () => {
     setIsLoading(true);
     setIsChanged(false);
     try {
@@ -134,16 +147,21 @@ export default function Horario() {
     const semana = getSemanas();
     getAsignaturas();
     getAlllocales();
-    getAllClases(brigada, semana);
+    getAllClases();
+    getBalances();
     //getMatriz();
   }, []);
-  
   useEffect(() => {
     getSemanas();
     setIsSemanaChanged(false);
   }, [isSemanaChanged]);
   useEffect(() => {
+    getBalances();
+    setIsBalanceChanged(false);
+  }, [isBalanceChanged]);
+  useEffect(() => {
     getAllClases();
+    getBalances();
   }, [semanasSeleccionada]);
   useEffect(() => {
     getAllClases();
@@ -207,7 +225,7 @@ export default function Horario() {
 
   //TODO
   const deleteHorario = async () => {
-    const semanadelete = semanasSeleccionada.id;
+    const semanadelete = semanasSeleccionada;
     await axios.delete(`${apiURL}/horarios/${semanasSeleccionada}`);
     setSemanasSeleccionada(semanaInicial);
     setIsSemanaChanged(true);
@@ -234,79 +252,88 @@ export default function Horario() {
   return (
     <>
       {" "}
-      <div className="flex flex-row items-center place-content-center">
-        <div className="flex-col items-center  place-content-center">
-          <CenteredTabs
-            brigadas={brigadas}
-            brigadaSeleccionada={brigadaSeleccionada}
-            setBrigadaSeleccionada={setBrigadaSeleccionada}
-          />
+      <div className="flex-col">
+        <CenteredTabs
+          brigadas={brigadas}
+          brigadaSeleccionada={brigadaSeleccionada}
+          setBrigadaSeleccionada={setBrigadaSeleccionada}
+        />
 
-          <div className=" flex flex-row items-center place-content-center">
-            <div className="items-center place-content-center p-6 w-1/7">
-              <h1 className="bg-slate-300  shadow-slate-700 rounded p-2 text-slate-700 shadow-sm m-3 text-center flex items-center place-content-center">
-                SEMANAS
-              </h1>
-              <TabPanel
-                semanas={semanas}
-                semanasSeleccionada={semanasSeleccionada}
-                setSemanasSeleccionada={setSemanasSeleccionada}
-              />
-              <div className="flex flex-col">
-                <Button
-                  className="mt-4 ml-2"
-                  //onClick={
-                  color="primary"
-                  startContent={<HiOutlinePlusCircle />}
-                  radius="sm"
-                  variant="ghost"
-                  onClick={addSemana}
-                >
-                  Add
-                </Button>
+        <div className=" flex flex-row">
+          <div className="items-center place-content-center p-6 w-1/7">
+            <h1 className="bg-slate-300  shadow-slate-700 rounded p-2 text-slate-700 shadow-sm m-3 text-center flex items-center place-content-center">
+              SEMANAS
+            </h1>
+            <TabPanel
+              semanas={semanas}
+              semanasSeleccionada={semanasSeleccionada}
+              setSemanasSeleccionada={setSemanasSeleccionada}
+            />
+            <div className="flex flex-col">
+              <Button
+                className="mt-4 ml-2"
+                //onClick={
+                color="primary"
+                startContent={<HiOutlinePlusCircle />}
+                radius="sm"
+                variant="ghost"
+                onClick={addSemana}
+              >
+                Add
+              </Button>
 
-                <Button
-                  className="mt-4 ml-2"
-                  onClick={deleteHorario}
-                  color="danger"
-                  startContent={<HiOutlinePlusCircle />}
-                  radius="sm"
-                  variant="solid"
-                >
-                  Delete
-                </Button>
-              </div>
+              <Button
+                className="mt-4 ml-2"
+                onClick={deleteHorario}
+                color="danger"
+                startContent={<HiOutlinePlusCircle />}
+                radius="sm"
+                variant="solid"
+              >
+                Delete
+              </Button>
             </div>
-            <div className="mt-4">
-              <HorarioTabla
-                matriz={matriz}
-                horarioTabla={horarioTabla}
-                brigadas={brigadas}
-                brigadaSeleccionada={brigadaSeleccionada}
-                asignaturas={asignaturas}
-                locales={locales}
-                semanasSeleccionada={semanasSeleccionada}
-                isCHanged={isCHanged}
-                setIsChanged={setIsChanged}
-              />
-            </div>
-            {/*  <div className="items-center place-content-center p-3  w-72">
-              {asignaturas?.length <= 0 ? (
-                <></>
-              ) : (
-                <VerticalTabsNew
-                  asignaturas={asignaturas}
-                  setAsignaturaSeleccionada={setAsignaturaSeleccionada}
-                />
-              )}{" "}
-            </div> */}
           </div>
+          <div className="mt-4">
+            <HorarioTabla
+              matriz={matriz}
+              setMatriz={setMatriz}
+              horarioTabla={horarioTabla}
+              brigadas={brigadas}
+              brigadaSeleccionada={brigadaSeleccionada}
+              asignaturas={asignaturas}
+              locales={locales}
+              semanasSeleccionada={semanasSeleccionada}
+              isCHanged={isCHanged}
+              setIsChanged={setIsChanged}
+            />
+          </div>
+          {/*  <div className="items-center place-content-center p-3  w-72">
+        {asignaturas?.length <= 0 ? (
+          <></>
+        ) : (
+          <VerticalTabsNew
+          asignaturas={asignaturas}
+          setAsignaturaSeleccionada={setAsignaturaSeleccionada}
+          />
+        )}{" "}
+      </div> */}
+          {
+            <BalanceBar
+              balances={balances}
+              horarioTabla={horarioTabla}
+              semanasSeleccionada={semanasSeleccionada}
+              asignaturas={asignaturas}
+              setIsBalanceChanged={setIsBalanceChanged}
+            />
+          }
         </div>
-        <CreateClassModal
+
+        {/*  <CreateClassModal
           isOpen={isModalOpen}
           onOpen={onOpenModal}
           onClose={onCloseModal}
-        />
+        /> */}
       </div>
     </>
   );
@@ -324,10 +351,11 @@ export function HorarioTabla({
   isCHanged,
   setIsChanged,
   matriz,
+  setMatriz,
 }) {
   return (
     <table className="border-collapse border rounded overflow-hidden bg-white table-auto md:table-fixed border-slate-800 shadow-lg  ">
-      <thead className="border bg-slate-800 h-14 text-white shadow-sm  shadow-slate-800 border-slate-600 ">
+      <thead className="border bg-slate-800 h-14 text-white shadow-sm  shadow-slate-800 border-slate-800 ">
         <tr>
           <th className="px-4  py-2">Turno</th>
           <th className="px-4 py-2">Lunes</th>
@@ -343,7 +371,7 @@ export function HorarioTabla({
             <td className="  border-slate-700 text-center">
               <div
                 className={
-                  "bg-slate-800 p-4 m-2 text-white rounded text-center shadow-sm shadow-slate-700 transition-all "
+                  "bg-slate-800 p-4 m-2 h-16 text-white rounded text-center font-semibold place-content-center shadow-sm shadow-slate-700 transition-all "
                 }
               >
                 {turno + 1}
@@ -357,6 +385,7 @@ export function HorarioTabla({
                 <div className="w-full h-full flex items-center place-content-center">
                   <Item
                     matriz={matriz}
+                    setMatriz={setMatriz}
                     clase={clase}
                     color={clase?.asignatura?.color}
                     turn={turno}

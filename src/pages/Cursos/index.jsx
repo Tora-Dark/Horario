@@ -89,10 +89,12 @@ export default function CursosTable (){
             <div className="ml-1 items-center content-center">
               <Dropdown color="default" backdrop="opaque">
                 <DropdownTrigger>
-                  <IconButton variant="bordered" size="small">
+                  <Button isIconOnly variant="light" size="lg">
                     {/* Descomentar la linea de abajo una vez se haya mandado el horario a los alumnos para seguir con el Desarrollo y comentarla cuando se vaya a enviar */}
-                    <HiCog />
-                  </IconButton>
+                    <HiCog className="text-xl" />
+
+                    
+                  </Button>
                 </DropdownTrigger>
                 <DropdownMenu variant="faded" aria-label="Static Actions">
                   <DropdownItem

@@ -8,11 +8,11 @@ import MoveClaseModal from "./MoveClaseModal.jsx";
 
 import {
   Tooltip,
-  Button,
   Dropdown,
   DropdownMenu,
   DropdownTrigger,
   DropdownItem,
+  Button,
 } from "@nextui-org/react";
 import axios from "axios";
 import {
@@ -22,7 +22,6 @@ import {
   HiOutlinePencilAlt,
   HiOutlineTrash,
 } from "react-icons/hi";
-import { IconButton } from "@mui/material";
 const apiURL = "http://127.0.0.1:8000/api";
 
 const iconClasses =
@@ -40,12 +39,10 @@ const Item = ({
   isCHanged,
   setIsChanged,
   matriz,
+  setMatriz
 }) => {
   //const endpoint = "http://127.0.0.1:8000/api/clases";
 
-  const handleButtonClick = () => {
-    navigate(`/createClase?turn=${turn + 1}&fecha=${fecha + 1}`);
-  };
   const handleEliminarClase = async (id) => {
     try {
       await axios.delete(`${apiURL}/clases/${id}`);
@@ -80,7 +77,7 @@ const Item = ({
     <div
       className={
         `${color} ` +
-        "text-slate-700 rounded shadow-sm shadow-slate-700 transition-all m-2 w-full h-14"
+        "text-slate-700 rounded shadow-sm shadow-slate-700 transition-all m-2 w-full h-16"
       }
     >
       <div className="grid grid-cols-4">
@@ -91,12 +88,12 @@ const Item = ({
           </div>
           <h2 className="text-center">{clase?.local?.nombre}</h2>
         </div>
-        <div className="col-span-1 flex flex-col font-bold text-center">
+        <div className="col-span-1 pr-3 flex flex-col font-bold text-center">
           <div>
             <Tooltip
               placement="right"
-              color=""
               delay={0}
+              radius="full"
               closeDelay={0}
               motionProps={{
                 variants: {
@@ -122,13 +119,13 @@ const Item = ({
                 </div>
               }
             >
-              <div className="ml-1 items-center content-center">
-                <Dropdown color="default" backdrop="opaque">
+              <div className=" items-center content-center">
+                <Dropdown  backdrop="opaque">
                   <DropdownTrigger>
-                    <IconButton variant="bordered" size="small">
+                    <Button isIconOnly radius="full" size="sm" variant="ligth">
                       {/* Descomentar la linea de abajo una vez se haya mandado el horario a los alumnos para seguir con el Desarrollo y comentarla cuando se vaya a enviar */}
-                      {<HiCog />}
-                    </IconButton>
+                      {<HiCog className="text-lg text-slate-600" />}
+                    </Button>
                   </DropdownTrigger>
                   <DropdownMenu variant="faded" aria-label="Static Actions">
                     <DropdownItem
@@ -198,11 +195,11 @@ const Item = ({
                 </div>
               }
             >
-              <div className="ml-1 items-center content-center">
-                <IconButton size="small">
+              <div className="pr-2 pb-2 items-center content-center">
+                <Button size="sm"  radius="full" isIconOnly variant="ligth" >
                   {/* Descomentar la linea de abajo una vez se haya mandado el horario a los alumnos para seguir con el Desarrollo y comentarla cuando se vaya a enviar */}
-                  {<HiInformationCircle />}
-                </IconButton>
+                  {<HiInformationCircle className="text-lg text-slate-600" />}
+                </Button>
               </div>
             </Tooltip>
           </div>
@@ -252,10 +249,10 @@ const Item = ({
       )}
     </div>
   ) : (
-    <div className="bg-slate-200 flex items-center place-content-center text-slate-700 rounded shadow-sm overflow-hidden shadow-slate-700 transition-all m-2 w-full h-14">
-      <IconButton aria-label="" onClick={() => setIsModalOpen(true)}>
-        {<HiOutlinePlusCircle />}
-      </IconButton>
+    <div className="bg-slate-200 flex items-center place-content-center text-slate-700 rounded shadow-sm overflow-hidden shadow-slate-700 transition-all m-2 w-full h-16">
+      <Button radius="full" isIconOnly variant="ligth" size="sm"  aria-label="" onClick={() => setIsModalOpen(true)}>
+        {<HiOutlinePlusCircle className="text-xl text-current" />}
+      </Button>
       <CreateClassModal
         clase={clase}
         color={color}

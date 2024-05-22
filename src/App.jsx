@@ -13,16 +13,19 @@ import CursosTable from "./pages/Cursos/index.jsx";
 import Prueba from "./pages/prueba/index.jsx";
 
 import { ToastContainer, toast } from "react-toastify";
-
 import "react-toastify/dist/ReactToastify.css";
+import Navigationbar from "./pages/Navbar/Navigationbar.jsx";
 const apiURL = "http://127.0.0.1:8000/api";
 export default function App() {
   const navigate = useNavigate();
   return (
     <>
-      <NextUIProvider navigate={navigate}>
-        <div className="flex bg-slate-100 flex-row h-[100vh]">
-          <TopNavbar />
+    <NextUIProvider navigate={navigate}>
+
+    <div className="flex flex-col bg-slate-100 h-[100vh]">
+    <Navigationbar/>  
+    <div className="flex flex-row h-full">
+        <TopNavbar />
 
           <Routes>
             {<Route path="/" element={<Horario />} />}
@@ -34,6 +37,7 @@ export default function App() {
 
             <Route path="/cursos" element={<CursosTable />} />
           </Routes>
+          </div>
         </div>{" "}
       </NextUIProvider>
       <ToastContainer />

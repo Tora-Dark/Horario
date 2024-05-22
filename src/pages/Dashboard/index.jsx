@@ -28,9 +28,9 @@ export default function TopNavbar() {
 
   const isActive = (href) => location.pathname === href;
   return (
-    <div className="bg-white h-full border flex shadow-md ">
+    <div className="bg-slate-800   h-full  flex  shadow-inner shadow-current ">
       <Listbox
-      className="w-52"
+        className="w-52"
         variant="shadow"
         disallowEmptySelection
         selectionMode="single"
@@ -41,8 +41,9 @@ export default function TopNavbar() {
         <ListboxItem
           key="horario"
           textValue="horario"
-          className={` ${isActive("/horario") ? "bg-slate-700 text-slate-300" : ""}`}
-      
+          className={` ${
+            isActive("/horario") ? "bg-slate-700 shadow-md  text-slate-300" : "text-slate-300"
+          }`}
           href="/horario"
         >
           <div className="flex flex-raw text-large  content-center items-center gap-2">
@@ -55,7 +56,11 @@ export default function TopNavbar() {
         <ListboxItem
           key="asignaturas"
           textValue="asignaturas"
-          className={` ${isActive("/asignaturas") ? "bg-neutral-300 shadow-md text-slate-800" : ""}`}
+          className={` ${
+            isActive("/asignaturas")
+              ? "bg-slate-700 text-slate-300  shadow-md "
+              : "text-slate-300"
+          }`}
           href="/asignaturas"
         >
           <div className="flex flex-raw text-large  content-center items-center gap-2">
@@ -68,7 +73,11 @@ export default function TopNavbar() {
         <ListboxItem
           textValue="cursos"
           key="cursos"
-          className={` ${isActive("/cursos") ? "bg-slate-700 text-slate-300" : ""}`}
+          className={` ${
+            isActive("/cursos")
+              ? "bg-slate-700 text-slate-300  shadow-md "
+              : "text-slate-300"
+          }`}
           href="/cursos"
         >
           <div className="flex flex-raw text-large  content-center items-center gap-2">
@@ -81,7 +90,11 @@ export default function TopNavbar() {
         <ListboxItem
           textValue="locales"
           key="locales"
-          className={` ${isActive("/locales") ? "bg-slate-500 text-slate-300" : ""}`}
+          className={` ${
+            isActive("/locales")
+              ? "bg-slate-700 text-slate-300  shadow-md "
+              : "text-slate-300"
+          }`}
           href="/locales"
         >
           <div className="flex flex-raw text-large  content-center items-center gap-2">
@@ -94,7 +107,11 @@ export default function TopNavbar() {
         <ListboxItem
           textValue="brigadas"
           key="brigadas"
-          className=" text-large"
+          className={` ${
+            isActive("/brigadas")
+              ? "bg-slate-700 text-slate-300  shadow-md "
+              : "text-slate-300"
+          }`}
           href="/brigadas"
         >
           <div className="flex flex-raw text-large  content-center items-center gap-2">
@@ -107,7 +124,11 @@ export default function TopNavbar() {
         <ListboxItem
           textValue="otros"
           key="otros"
-          className=" text-large"
+          className={` ${
+            isActive("/otros")
+              ? "bg-slate-700 text-slate-300  shadow-md "
+              : "text-slate-300"
+          }`}
           href="/otros"
         >
           <div className="flex flex-raw text-large  content-center items-center gap-2">
