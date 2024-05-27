@@ -7,6 +7,7 @@ import {
   TableRow,
   TableCell,
   Chip,
+  Pagination,
   Tooltip,
   getKeyValue,
   Button,
@@ -15,7 +16,6 @@ import {
   DropdownTrigger,
   DropdownItem,
 } from "@nextui-org/react";
-import IconButton from "@mui/material/IconButton";
 import {
   HiInformationCircle,
   HiCog,
@@ -44,11 +44,21 @@ const LoacalsTable = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditModalOpen, setisEditModalOpen] = useState(false);
   const [localEdit, setLocalEdit] = useState([]);
+  const [page, setPage] = React.useState(1);
+  const rowsPerPage = 4;
   const onOpenModal = () => {};
   const onCloseModal = () => {
     setIsCreateModalOpen(false);
     setisEditModalOpen(false);
   };
+  const pages = Math.ceil(locales.length / rowsPerPage);
+
+  const items = React.useMemo(() => {
+    const start = (page - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+
+    return locales.slice(start, end);
+  }, [page, locales]);
   const handlebutton = (local) => {
     setisEditModalOpen(true);
     setLocalEdit(local);
@@ -91,10 +101,10 @@ const LoacalsTable = () => {
             <div className="ml-1 items-center content-center">
               <Dropdown color="default" backdrop="opaque">
                 <DropdownTrigger>
-                  <IconButton variant="bordered" size="small">
+                  <Button isIconOnly color="danger" variant="light" aria-label="Like">
                     {/* Descomentar la linea de abajo una vez se haya mandado el horario a los alumnos para seguir con el Desarrollo y comentarla cuando se vaya a enviar */}
-                    <HiCog />
-                  </IconButton>
+                    <HiCog className="text-xl" />
+                  </Button>
                 </DropdownTrigger>
                 <DropdownMenu variant="faded" aria-label="Static Actions">
                   <DropdownItem
@@ -150,13 +160,26 @@ const LoacalsTable = () => {
         <Table
           className="border-collapse border rounded-2xl table-auto md:table-fixed  shadow-lg"
           aria-label="Example table with dynamic content"
+          bottomContent={
+            <div className="flex w-full justify-center">
+              <Pagination
+                isCompact
+                showControls
+                showShadow
+                color="secondary"
+                page={page}
+                total={pages}
+                onChange={(page) => setPage(page)}
+              />
+            </div>
+          }
         >
           <TableHeader className="" columns={columns}>
             {(column) => (
               <TableColumn key={column.uid}>{column.name}</TableColumn>
             )}
           </TableHeader>
-          <TableBody items={locales}>
+          <TableBody items={items}>
             {(item) => (
               <TableRow key={item.id}>
                 {(columnKey) => (
@@ -167,15 +190,13 @@ const LoacalsTable = () => {
           </TableBody>
         </Table>
       </div>
-      {
-     /*  <CreateBrigadaModal
+      {/*  <CreateBrigadaModal
           isOpen={isCreateModalOpen}
           onOpen={onOpenModal}
           onClose={onCloseModal}
           isCHanged={isCHanged}
           setIsChanged={setIsChanged}
-        />  */
-      }
+        />  */}
       {isEditModalOpen ? (
         <EditBrigadaModal
           isOpen={isEditModalOpen}

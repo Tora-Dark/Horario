@@ -9,7 +9,6 @@ import {
 import React, { useState } from "react";
 import { HiChevronDoubleUp } from "react-icons/hi";
 import { HiChevronDoubleDown } from "react-icons/hi";
-import IconButton from "@mui/material/IconButton";
 import { Button } from "@nextui-org/react";
 import {Chip} from "@nextui-org/react";
 import { HiOutlinePlusCircle } from "react-icons/hi";
@@ -63,9 +62,9 @@ export function VerticalTabsNew({ asignaturas, setAsignaturaSeleccionada }) {
               ))}
           </div>
           <div>
-            <IconButton onClick={handleDown}>
+            <Button IconOnly onClick={handleDown}>
               <HiChevronDoubleDown />
-            </IconButton>
+            </Button>
           </div>
         </TabsHeader>
         <div className="flex bg-slate-100 m-3 rounded h-48 w-36 shadow-sm shadow-slate-500 items-center content-center text-center">

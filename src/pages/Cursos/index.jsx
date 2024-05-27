@@ -15,7 +15,6 @@ import {
   DropdownTrigger,
   DropdownItem,
 } from "@nextui-org/react";
-import IconButton from "@mui/material/IconButton";
 import {
   HiInformationCircle,
   HiCog,
@@ -27,10 +26,110 @@ import { HiOutlinePencil, HiPencilAlt, HiTrash } from "react-icons/hi";
 import { HiOutlineEye } from "react-icons/hi";
 import { HiCube } from "react-icons/hi";
 import { HiOutlinePlusCircle } from "react-icons/hi";
-const endpoint = "http://127.0.0.1:8000/api/asignaturas";
+const apiURL = "http://127.0.0.1:8000/api";
+const iconClasses = "text-xl  pointer-events-none flex-shrink-0";
 
-const index = () => {
+import axios from "axios";
+import EditCursosModal from "./EditCursosModal";
+import CreateCursosModal from "./CreateCursosModal";
+const columns = [
+  { name: "NOMBRE", uid: "nombre" },
+  { name: "ACTIONS", uid: "actions" },
+];
+export default function CursosTable (){
+  const [cursos, setCursos] = useState([]);
+  const [isCHanged, setIsChanged] = useState(false);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isEditModalOpen, setisEditModalOpen] = useState(false);
+  const [cursosEdit, setCursosdit] = useState([]);
+  const onOpenModal = () => {};
+  const onCloseModal = () => {
+    setIsCreateModalOpen(false);
+    setisEditModalOpen(false);
+  };
+  const handlebutton = (curso) => {
+    setisEditModalOpen(true);
+    setCursosdit(curso);
+  };
 
+  const getCursos = async () => {
+    try {
+      const response = await axios.get(`${apiURL}/cursos `);
+      setCursos(response.data);
+      setIsChanged(false);
+    } catch (err) {
+      console.log(`error: ${err}`);
+    }
+  };
+  useEffect(() => {
+    getCursos();
+  }, [isCHanged]);
+  const handleEliminarCurso = async (id) => {
+    try {
+      await axios.delete(`${apiURL}/cursos/${id}`);
+      setIsChanged(true);
+      // Realiza cualquier otra acción necesaria después de eliminar la clase
+    } catch (error) {
+      console.error("Error al eliminar el curso:", error);
+    }
+  };
+
+  const renderCell = React.useCallback((curso, columnKey) => {
+    const cellValue = curso[columnKey];
+    switch (columnKey) {
+      case "nombre":
+        return (
+          <>
+            <h2>{curso.nombre}</h2>
+          </>
+        );
+      case "actions":
+        return (
+          <>
+            <div className="ml-1 items-center content-center">
+              <Dropdown color="default" backdrop="opaque">
+                <DropdownTrigger>
+                  <IconButton variant="bordered" size="small">
+                    {/* Descomentar la linea de abajo una vez se haya mandado el horario a los alumnos para seguir con el Desarrollo y comentarla cuando se vaya a enviar */}
+                    <HiCog />
+                  </IconButton>
+                </DropdownTrigger>
+                <DropdownMenu variant="faded" aria-label="Static Actions">
+                  <DropdownItem
+                    startContent={
+                      <HiOutlinePencilAlt className={iconClasses} />
+                    }
+                    key="edit"
+                    onClick={() => handlebutton(curso)}
+                  >
+                    Edit brigada
+                  </DropdownItem>
+                  {/*  <DropdownItem
+                    startContent={
+                      <HiOutlineClipboardCopy className={iconClasses} />
+                    }
+                    key="move"
+                  >
+                    Move assigment
+                  </DropdownItem> */}
+                  <DropdownItem
+                    startContent={<HiOutlineTrash className={iconClasses} />}
+                    key="delete"
+                    onClick={() => handleEliminarCurso(curso?.id)}
+                    className="text-danger"
+                    color="danger"
+                  >
+                    Delete brigada
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+            </div>
+          </>
+        );
+      default:
+        return cellValue;
+    }
+  }, []);
 
   return (
     <div className="flex flex-col items-center content-center align-middle w-full h-full mx-5">
@@ -55,7 +154,7 @@ const index = () => {
             <TableColumn key={column.uid}>{column.name}</TableColumn>
           )}
         </TableHeader>
-        <TableBody items={asignaturas}>
+        <TableBody items={cursos}>
           {(item) => (
             <TableRow key={item.id}>
               {(columnKey) => (
@@ -66,7 +165,7 @@ const index = () => {
         </TableBody>
       </Table>
     </div>
-    <CreateAssigmentModal
+    <CreateCursosModal
       isOpen={isCreateModalOpen}
       onOpen={onOpenModal}
       onClose={onCloseModal}
@@ -74,12 +173,12 @@ const index = () => {
       setIsChanged={setIsChanged}
     />
     {isEditModalOpen ? (
-      <EditAssigmentModal
+      <EditCursosModal
         isOpen={isEditModalOpen}
         onOpen={onOpenModal}
         onClose={onCloseModal}
         isCHanged={isCHanged}
-        asignaturaedit={asignaturaEdit}
+        cursosEdit={cursosEdit}
         setIsChanged={setIsChanged}
       />
     ) : (
@@ -88,5 +187,3 @@ const index = () => {
   </div>
 );
 }
-
-export default index

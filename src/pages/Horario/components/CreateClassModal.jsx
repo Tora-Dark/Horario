@@ -42,7 +42,7 @@ export default function CreateClassModal({
   const navigate = useNavigate();
   // const { isOpen, onOpen, onClose } = useDisclosure();
   const [backdrop, setBackdrop] = React.useState("opaque");
-
+ const { onOpenChange} = useDisclosure();
   const backdrops = ["opaque", "blur", "transparent"];
 
   const handleOpen = (backdrop) => {
@@ -195,7 +195,12 @@ export default function CreateClassModal({
 
   return (
     <>
-      <Modal backdrop={"blur"} isOpen={isOpen} onClose={onClose}>
+      <Modal backdrop="blur" 
+      isOpen={isOpen} 
+      onOpenChange={onOpenChange}
+      radius="lg"
+      classNames={{
+      }}onClose={onClose}>
         <ModalContent>
           {(onClose) => (
             <>

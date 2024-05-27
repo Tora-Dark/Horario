@@ -55,7 +55,7 @@ export default function TopNavbar() {
         <ListboxItem
           key="asignaturas"
           textValue="asignaturas"
-          className={` ${isActive("/asignaturas") ? "bg-neutral-300 text-slate-800" : ""}`}
+          className={` ${isActive("/asignaturas") ? "bg-neutral-300 shadow-md text-slate-800" : ""}`}
           href="/asignaturas"
         >
           <div className="flex flex-raw text-large  content-center items-center gap-2">
@@ -108,7 +108,7 @@ export default function TopNavbar() {
           textValue="otros"
           key="otros"
           className=" text-large"
-          href="/"
+          href="/otros"
         >
           <div className="flex flex-raw text-large  content-center items-center gap-2">
             <HiAcademicCap />

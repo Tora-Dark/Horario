@@ -3,11 +3,12 @@ import axios from "axios";
 import Item from "./components/Item.jsx";
 import CenteredTabs from "./components/CenteredTabs.jsx";
 import TabPanel from "./components/VerticalTabs.jsx";
+import { Button } from "@nextui-org/react";
 import { NextUIProvider } from "@nextui-org/react";
-import { VerticalTabsNew } from "./components/VerticalTabsNew.jsx";
-import Button from "@mui/material/Button";
 import CreateClassModal from "./components/CreateClassModal.jsx";
+import { HiOutlinePlusCircle } from "react-icons/hi";
 
+import { Spinner } from "@nextui-org/react";
 const apiURL = "http://127.0.0.1:8000/api";
 // const apiURL = import.meta.env.VITE_API_URL;
 const horarioInicial = [
@@ -46,8 +47,15 @@ export default function Horario() {
   //Arreglo con todos los locales
   const [locales, setLocales] = useState([]);
 
-  const [isCHanged, setIsChanged] = useState(false);
+  const [matriz, setMatriz] = useState([]);
 
+
+  //semana para agregar
+  const [semana, setSemena] = useState(1);
+  //se cambian las clases
+  const [isCHanged, setIsChanged] = useState(false);
+  //se cambian las semanas
+  const [isSemanaChanged, setIsSemanaChanged] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const onOpenModal = () => {};
@@ -63,7 +71,14 @@ export default function Horario() {
       console.log(`error: ${err}`);
     }
   };
-
+  const getMatriz = async () => {
+    try {
+      const response = await axios.post(`${apiURL}/horarios/1/11`);
+      setMatriz(response.data);
+    } catch (err) {
+      console.log(`error: ${err}`);
+    }
+  };
   const getAlllocales = async () => {
     try {
       const response = await axios.get(`${apiURL}/locales`);
@@ -116,8 +131,13 @@ export default function Horario() {
     getSemanas();
     getAsignaturas();
     getAlllocales();
+    getMatriz();
   }, []);
 
+  useEffect(() => {
+    getSemanas();
+    setIsSemanaChanged(false);
+  }, [isSemanaChanged]);
   useEffect(() => {
     getAllClases();
   }, [semanasSeleccionada]);
@@ -186,11 +206,21 @@ export default function Horario() {
     await axios.delete(`${apiURL}/clases/${id}`);
     getAllClases();
   };
-
+  const addSemana = async () => {
+    await axios.post(`${apiURL}/horarios `, {
+      semana: semana,
+    });
+    setIsSemanaChanged(true);
+  };
   if (brigadas.length == 0 || semanas.length == 0)
     return (
       <div className="h-[100vh] w-full flex items-center place-content-center">
-        <h2>Cargando esta vaina</h2>
+        <Spinner
+          label="Cargando esta vaina"
+          color="secondary"
+          size="lg"
+          labelColor="secondary"
+        />
       </div>
     );
 
@@ -215,9 +245,21 @@ export default function Horario() {
                 semanasSeleccionada={semanasSeleccionada}
                 setSemanasSeleccionada={setSemanasSeleccionada}
               />
+              <Button
+                className="mt-4 ml-2"
+                //onClick={
+                color="primary"
+                startContent={<HiOutlinePlusCircle />}
+                radius="sm"
+                variant="ghost"
+                onClick={addSemana}
+              >
+                Añadir
+              </Button>
             </div>
             <div className="mt-4">
               <HorarioTabla
+              matriz={matriz}
                 horarioTabla={horarioTabla}
                 brigadas={brigadas}
                 brigadaSeleccionada={brigadaSeleccionada}
@@ -228,7 +270,7 @@ export default function Horario() {
                 setIsChanged={setIsChanged}
               />
             </div>
-            <div className="items-center place-content-center p-3  w-72">
+            {/*  <div className="items-center place-content-center p-3  w-72">
               {asignaturas?.length <= 0 ? (
                 <></>
               ) : (
@@ -237,7 +279,7 @@ export default function Horario() {
                   setAsignaturaSeleccionada={setAsignaturaSeleccionada}
                 />
               )}{" "}
-            </div>
+            </div> */}
           </div>
         </div>
         <CreateClassModal
@@ -261,6 +303,7 @@ export function HorarioTabla({
   semanasSeleccionada,
   isCHanged,
   setIsChanged,
+  matriz
 }) {
   return (
     <table className="border-collapse border bg-white table-auto md:table-fixed border-slate-500 shadow-lg ">
@@ -287,6 +330,7 @@ export function HorarioTabla({
               >
                 <div className="w-full h-full flex items-center place-content-center">
                   <Item
+                  matriz={matriz}
                     clase={clase}
                     color={clase?.asignatura?.color}
                     turn={turno}

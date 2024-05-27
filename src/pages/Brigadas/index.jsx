@@ -15,7 +15,6 @@ import {
   DropdownTrigger,
   DropdownItem,
 } from "@nextui-org/react";
-import IconButton from "@mui/material/IconButton";
 import {
   HiInformationCircle,
   HiCog,
@@ -139,6 +138,7 @@ const BrigadaTable = () => {
         <Button
           color="primary"
           variant="flat"
+          radius="sm"
           startContent={<HiOutlinePlusCircle />}
           onClick={() => setIsCreateModalOpen(true)}
         >

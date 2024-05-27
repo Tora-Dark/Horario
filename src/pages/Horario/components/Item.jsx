@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { HiOutlinePlusCircle } from "react-icons/hi";
-import IconButton from "@mui/material/IconButton";
+
 import { useNavigate } from "react-router-dom";
 import CreateClassModal from "./CreateClassModal.jsx";
 import EditClassModal from "./EditClassModal.jsx";
+import MoveClaseModal from "./MoveClaseModal.jsx";
+
 import {
   Tooltip,
   Button,
@@ -20,6 +22,9 @@ import {
   HiOutlinePencilAlt,
   HiOutlineTrash,
 } from "react-icons/hi";
+import { IconButton } from "@mui/material";
+const apiURL = "http://127.0.0.1:8000/api";
+
 const iconClasses =
   "text-xl text-default-500 pointer-events-none flex-shrink-0";
 const Item = ({
@@ -34,26 +39,36 @@ const Item = ({
   semanasSeleccionada,
   isCHanged,
   setIsChanged,
+  matriz
+
 }) => {
-  const endpoint = "http://127.0.0.1:8000/api/clases";
-  const navigate = useNavigate();
+  //const endpoint = "http://127.0.0.1:8000/api/clases";
+  
   const handleButtonClick = () => {
     navigate(`/createClase?turn=${turn + 1}&fecha=${fecha + 1}`);
   };
   const handleEliminarClase = async (id) => {
     try {
-      await axios.delete(`${endpoint}/${id}`);
+      await axios.delete(`${apiURL}/clases/${id}`);
       setIsChanged(true);
       // Realiza cualquier otra acción necesaria después de eliminar la clase
     } catch (error) {
       console.error("Error al eliminar la clase:", error);
     }
   };
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isMoveModalOpen, setIsMoveModalOpen] = useState(false);
+  const [classMove, setclassMove] = useState();
   const onOpenModal = () => {};
   const onCloseModal = () => {
     setIsModalOpen(false);
+    setIsMoveModalOpen(false);
+  };
+ 
+
+  const handelMoveClass = () => {
+    setIsMoveModalOpen(true);
   };
   return clase ? (
     <div
@@ -124,6 +139,7 @@ const Item = ({
                         <HiOutlineClipboardCopy className={iconClasses} />
                       }
                       key="move"
+                      onClick={() => handelMoveClass()}
                     >
                       Move class
                     </DropdownItem>
@@ -177,9 +193,9 @@ const Item = ({
               }
             >
               <div className="ml-1 items-center content-center">
-                <IconButton aria-label="" size="small">
+                <IconButton  size="small">
                   {/* Descomentar la linea de abajo una vez se haya mandado el horario a los alumnos para seguir con el Desarrollo y comentarla cuando se vaya a enviar */}
-                  {<HiInformationCircle  />}
+                  {<HiInformationCircle />}
                 </IconButton>
               </div>
             </Tooltip>
@@ -204,6 +220,19 @@ const Item = ({
           asignaturaEdit={`${clase.asignatura.id}`}
         />
       </div>
+      {isMoveModalOpen ? (
+        <MoveClaseModal
+          isOpen={isMoveModalOpen}
+          matriz={matriz}
+          onOpen={onOpenModal}
+          onClose={onCloseModal}
+          isCHanged={isCHanged}
+          classMove={classMove}
+          setIsChanged={setIsChanged}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   ) : (
     <div className="  flex items-center place-content-center transition-all m-2 w-full h-14">
@@ -226,6 +255,7 @@ const Item = ({
         isCHanged={isCHanged}
         setIsChanged={setIsChanged}
       />
+     
     </div>
   );
 };

@@ -9,13 +9,13 @@ import {
   Chip,
   Tooltip,
   getKeyValue,
+  Pagination,
   Button,
-  Dropdown,
-  DropdownMenu,
-  DropdownTrigger,
-  DropdownItem,
+ // Dropdown,
+ // DropdownMenu,
+  //DropdownTrigger,
+  //DropdownItem,
 } from "@nextui-org/react";
-import IconButton from "@mui/material/IconButton";
 import {
   HiInformationCircle,
   HiCog,
@@ -28,6 +28,8 @@ import { HiOutlineEye } from "react-icons/hi";
 import { HiCube } from "react-icons/hi";
 import { HiOutlinePlusCircle } from "react-icons/hi";
 const endpoint = "http://127.0.0.1:8000/api/asignaturas";
+
+import {  Dropdown,  DropdownTrigger,  DropdownMenu,  DropdownSection,  DropdownItem} from "@nextui-org/react";
 
 const iconClasses =
   "text-xl text-default-500 pointer-events-none flex-shrink-0";
@@ -50,14 +52,27 @@ export default function AsignaturaTable() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditModalOpen, setisEditModalOpen] = useState(false);
   const [asignaturaEdit, setasignaturaEdit] = useState([]);
+  const [page, setPage] = React.useState(1);
+  const rowsPerPage = 4;
   const onOpenModal = () => {};
   const onCloseModal = () => {
     setIsCreateModalOpen(false);
     setisEditModalOpen(false);
   };
+  const pages = Math.ceil(asignaturas.length / rowsPerPage);
 
+
+
+  
+  const items = React.useMemo(() => {
+    const start = (page - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+
+    return asignaturas.slice(start, end);
+  }, [page, asignaturas]);
   const handlebutton = (asignatura) => {
     setisEditModalOpen(true);
+    console.log(asignatura);
     setasignaturaEdit(asignatura);
   };
 
@@ -82,19 +97,22 @@ export default function AsignaturaTable() {
       console.error("Error al eliminar la clase:", error);
     }
   };
+  const handleAction = (key,asignatura) => {
+    console.log("Hiciste clic en: ", key);
+  };
 
   const renderCell = React.useCallback((asignatura, columnKey) => {
     const cellValue = asignatura[columnKey];
     switch (columnKey) {
       case "nombre":
         return (
-          <>
+          <div className="">
             <h2>{asignatura.nombre}</h2>
-          </>
+          </div>
         );
       case "siglas":
         return (
-          <div className="flex flex-col">
+          <div className="flex flex-col ">
             <p className="text-bold text-sm capitalize">{cellValue}</p>
           </div>
         );
@@ -114,18 +132,18 @@ export default function AsignaturaTable() {
             <div className="ml-1 items-center content-center">
               <Dropdown color="default" backdrop="opaque">
                 <DropdownTrigger>
-                  <IconButton variant="bordered" size="small">
+                <Button isIconOnly color="danger" variant="light" aria-label="Like">
                     {/* Descomentar la linea de abajo una vez se haya mandado el horario a los alumnos para seguir con el Desarrollo y comentarla cuando se vaya a enviar */}
-                    <HiCog />
-                  </IconButton>
+                    <HiCog className="text-xl" />
+                  </Button>
                 </DropdownTrigger>
-                <DropdownMenu variant="faded" aria-label="Static Actions">
+                <DropdownMenu variant="faded" onAction={handleAction} aria-label="Static Actions">
                   <DropdownItem
                     startContent={
                       <HiOutlinePencilAlt className={iconClasses} />
                     }
                     key="edit"
-                    onClick={() => handlebutton(asignatura)}
+                    onClick={() => handlebutton(asignatura?.id)}
                   >
                     Edit assigment
                   </DropdownItem>
@@ -163,6 +181,7 @@ export default function AsignaturaTable() {
         <Button
           color="primary"
           variant="ghost"
+          radius="sm"
           className="text-lg"
           startContent={<HiOutlinePlusCircle />}
           onClick={() => setIsCreateModalOpen(true)}
@@ -172,15 +191,29 @@ export default function AsignaturaTable() {
       </div>
       <div className="flex items-center content-center align-middle w-full">
         <Table
+        isStriped
           className="border-collapse border rounded-2xl table-auto md:table-fixed  shadow-lg"
           aria-label="Example table with dynamic content"
+          bottomContent={
+            <div className="flex w-full justify-center">
+              <Pagination
+                isCompact
+                showControls
+                showShadow
+                color="secondary"
+                page={page}
+                total={pages}
+                onChange={(page) => setPage(page)}
+              />
+            </div>
+          }
         >
           <TableHeader className="" columns={columns}>
             {(column) => (
               <TableColumn key={column.uid}>{column.name}</TableColumn>
             )}
           </TableHeader>
-          <TableBody items={asignaturas}>
+          <TableBody items={items}>
             {(item) => (
               <TableRow key={item.id}>
                 {(columnKey) => (
