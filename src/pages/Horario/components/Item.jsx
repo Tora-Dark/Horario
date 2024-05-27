@@ -22,7 +22,7 @@ import {
   HiOutlinePencilAlt,
   HiOutlineTrash,
 } from "react-icons/hi";
-const apiURL = "http://127.0.0.1:8000/api";
+const apiURL = import.meta.env.VITE_API_URL;
 
 const iconClasses =
   "text-xl text-default-500 pointer-events-none flex-shrink-0";
@@ -39,7 +39,7 @@ const Item = ({
   isCHanged,
   setIsChanged,
   matriz,
-  setMatriz
+  setMatriz,
 }) => {
   //const endpoint = "http://127.0.0.1:8000/api/clases";
 
@@ -120,7 +120,7 @@ const Item = ({
               }
             >
               <div className=" items-center content-center">
-                <Dropdown  backdrop="opaque">
+                <Dropdown backdrop="opaque">
                   <DropdownTrigger>
                     <Button isIconOnly radius="full" size="sm" variant="ligth">
                       {/* Descomentar la linea de abajo una vez se haya mandado el horario a los alumnos para seguir con el Desarrollo y comentarla cuando se vaya a enviar */}
@@ -196,7 +196,7 @@ const Item = ({
               }
             >
               <div className="pr-2 pb-2 items-center content-center">
-                <Button size="sm"  radius="full" isIconOnly variant="ligth" >
+                <Button size="sm" radius="full" isIconOnly variant="ligth">
                   {/* Descomentar la linea de abajo una vez se haya mandado el horario a los alumnos para seguir con el Desarrollo y comentarla cuando se vaya a enviar */}
                   {<HiInformationCircle className="text-lg text-slate-600" />}
                 </Button>
@@ -250,7 +250,14 @@ const Item = ({
     </div>
   ) : (
     <div className="bg-slate-200 flex items-center place-content-center text-slate-700 rounded shadow-sm overflow-hidden shadow-slate-700 transition-all m-2 w-full h-16">
-      <Button radius="full" isIconOnly variant="ligth" size="sm"  aria-label="" onClick={() => setIsModalOpen(true)}>
+      <Button
+        radius="full"
+        isIconOnly
+        variant="ligth"
+        size="sm"
+        aria-label=""
+        onClick={() => setIsModalOpen(true)}
+      >
         {<HiOutlinePlusCircle className="text-xl text-current" />}
       </Button>
       <CreateClassModal

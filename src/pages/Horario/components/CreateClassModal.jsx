@@ -13,7 +13,9 @@ import {
 } from "@nextui-org/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-const endpoint = "http://127.0.0.1:8000/api/clases";
+const apiURL = import.meta.env.VITE_API_URL;
+/* 
+const endpoint = "http://127.0.0.1:8000/api/clases"; */
 import axios from "axios";
 import { HiTemplate } from "react-icons/hi";
 import { toast } from "react-toastify";
@@ -180,7 +182,7 @@ export default function CreateClassModal({
   const store = async (e) => {
     e.preventDefault();
 try {
-  await axios.post(endpoint, {
+  await axios.post(`${apiURL}/clases`, {
     tipo: tipo,
     turn: turno,
     fecha: dia,

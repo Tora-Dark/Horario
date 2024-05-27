@@ -13,7 +13,9 @@ import {
 } from "@nextui-org/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-const endpoint = "http://127.0.0.1:8000/api/clases";
+const apiURL = import.meta.env.VITE_API_URL;
+
+/* const endpoint = "http://127.0.0.1:8000/api/clases"; */
 import axios from "axios";
 import { HiTemplate } from "react-icons/hi";
 export default function EditClassModal({
@@ -175,7 +177,7 @@ export default function EditClassModal({
   const update = async (e) => {
     e.preventDefault();
 
-    await axios.put(`${endpoint}/${clase.id}`, {
+    await axios.put(`${apiURL}/clases/${clase.id}`, {
       tipo: tipo,
       turn: turno,
       fecha: dia,

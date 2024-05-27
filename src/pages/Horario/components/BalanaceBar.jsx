@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-const apiURL = "http://127.0.0.1:8000/api/balance_de_carga";
+const apiURL = import.meta.env.VITE_API_URL;
+
+/* const apiURL = "http://127.0.0.1:8000/api/balance_de_carga"; */
 import { HiBadgeCheck } from "react-icons/hi";
 import {
   Chip,
@@ -35,7 +37,7 @@ export default function BalanceBar({
   const store = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(apiURL, {
+      await axios.post(`${apiURL}/balance_de_carga`, {
         asignatura_id: asignatura_id,
         horario_id: semanasSeleccionada,
         cantidad: cantidad,

@@ -11,8 +11,10 @@ import {
   SelectItem,
 } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
-const apiURL = "http://127.0.0.1:8000/api";
-const endpoint = "http://127.0.0.1:8000/api/clases";
+/* const apiURL = "http://127.0.0.1:8000/api"; */
+const apiURL = import.meta.env.VITE_API_URL;
+
+/* const endpoint = "http://127.0.0.1:8000/api/clases"; */
 import {
   HiInformationCircle,
   HiCog,
@@ -98,7 +100,7 @@ export default function MoveClaseModal({
 
   const update = async (i, j) => {
     try {
-      const result = await axios.put(`${endpoint}/${clase.id}`, {
+      const result = await axios.put(`${apiURL}/clases/${clase.id}`, {
         tipo: tipo,
         turn: i,
         fecha: j,

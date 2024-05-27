@@ -13,7 +13,9 @@ import {
 } from "@nextui-org/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-const endpoint = "http://127.0.0.1:8000/api/asignaturas";
+/* const endpoint = "http://127.0.0.1:8000/api/asignaturas"; */
+const apiURL = import.meta.env.VITE_API_URL;
+
 import axios from "axios";
 import { HiTemplate } from "react-icons/hi";
 
@@ -38,7 +40,7 @@ const EditAssigmentModal = ({
   const update = async (e) => {
     e.preventDefault();
 
-    await axios.put(`${endpoint}/${selectedAsignatura.id} `, {
+    await axios.put(`${apiURL}/asignaturas/${selectedAsignatura.id} `, {
       nombre: nombre,
       siglas: siglas,
       color: coulor,

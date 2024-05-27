@@ -38,7 +38,8 @@ import axios from "axios";
 import CreateAssigmentModal from "./Components/CreateAssigmentModal";
 import EditAssigmentModal from "./Components/EditAssigmentModal";
 import { toast } from "react-toastify";
-const apiURL = "http://127.0.0.1:8000/api";
+/* const apiURL = "http://127.0.0.1:8000/api"; */
+const apiURL = import.meta.env.VITE_API_URL;
 
 const columns = [
   { name: "NOMBRE", uid: "nombre" },
@@ -90,7 +91,7 @@ export default function AsignaturaTable() {
   }, [isCHanged]);
   const handleEliminarAsignatura = async (id) => {
     try {
-      await axios.delete(`${endpoint}/${id}`);
+      await axios.delete(`${apiURL}/asignaturas/${id}`);
       setIsChanged(true);
       // Realiza cualquier otra acción necesaria después de eliminar la clase
     } catch (error) {

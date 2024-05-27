@@ -13,7 +13,9 @@ import {
 } from "@nextui-org/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-const endpoint = "http://127.0.0.1:8000/api/cursos";
+const apiURL = import.meta.env.VITE_API_URL;
+
+/* const endpoint = "http://127.0.0.1:8000/api/cursos"; */
 import axios from "axios";
 import { HiTemplate } from "react-icons/hi";
 import FileUpload from "./Fileupload";
@@ -38,7 +40,7 @@ function CreateCursosModal({
   const store = async (e) => {
     e.preventDefault();
 
-    await axios.post(endpoint, {
+    await axios.post(`${apiURL}/cursos`, {
       nombre: nombre,
     });
 

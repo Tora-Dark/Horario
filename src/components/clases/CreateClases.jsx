@@ -9,8 +9,9 @@ import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 
 import Link from "@mui/material/Link";
+const apiURL = import.meta.env.VITE_API_URL;
 
-const endpoint = "http://127.0.0.1:8000/api/clases";
+/* const endpoint = "http://127.0.0.1:8000/api/clases"; */
 
 export default function CreateClases() {
   const [tipo, setTipo] = useState("");
@@ -23,7 +24,7 @@ export default function CreateClases() {
 
   const store = async (e) => {
     e.preventDefault();
-    await axios.post(endpoint, {
+    await axios.post(`${apiURL}/clases`, {
       tipo: tipo,
       turn: turn,
       fecha: fecha,

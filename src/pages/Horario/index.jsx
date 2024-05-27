@@ -9,7 +9,7 @@ import { HiOutlinePlusCircle } from "react-icons/hi";
 
 import { Spinner } from "@nextui-org/react";
 import BalanceBar from "./components/BalanaceBar.jsx";
-const apiURL = "http://127.0.0.1:8000/api";
+const apiURL = import.meta.env.VITE_API_URL;
 // const apiURL = import.meta.env.VITE_API_URL;
 const horarioInicial = [
   ["", "", "", "", ""],
