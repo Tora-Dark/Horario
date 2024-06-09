@@ -167,6 +167,11 @@ export default function CreateClassModal({
       description: "Conferencia",
     },
     {
+      label: "CE",
+      value: "CE",
+      description: "Clase de Encuentro",
+    },
+    {
       label: "PP",
       value: "PP",
       description: "Prueba Parcial",
@@ -178,6 +183,7 @@ export default function CreateClassModal({
     { label: "L", value: "L", description: "Laboratorio" },
     {label: "----", value: "----", description: "----"}
   ];
+/*   const [values, setValues] = React.useState(new Set([`${brigadaSeleccionada}`])); */
   const [variant, setvariant] = useState("underlined");
   const store = async (e) => {
     e.preventDefault();
@@ -268,7 +274,7 @@ try {
                           setbrigadasSeleccionadas(e.target.value);
                         }
                       }}
-                      value={brigadasSeleccionadas}
+    /*                   selectedKeys={values} */
                     >
                       {(brigada) => (
                         <SelectItem value={brigada.id} key={brigada.id}>

@@ -15,11 +15,18 @@ import Prueba from "./pages/prueba/index.jsx";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navigationbar from "./pages/Navbar/Navigationbar.jsx";
+import { AuthProvider } from "./hooks/AuthProvider.jsx";
 const apiURL = "http://127.0.0.1:8000/api";
+
+
+
+
+
+
 export default function App() {
   const navigate = useNavigate();
   return (
-    <>
+<AuthProvider>
     <NextUIProvider navigate={navigate}>
 
     <div className="flex flex-col bg-slate-100 h-[100vh]">
@@ -28,12 +35,12 @@ export default function App() {
         <TopNavbar />
 
           <Routes>
-            {<Route path="/" element={<Horario />} />}
-            {<Route path="/horario" element={<Horario />} />}
-            {<Route path="/brigadas" element={<BrigadaTable />} />}
-            {<Route path="/locales" element={<LoacalsTable />} />}
-            {<Route path="/otros" element={<Prueba />} />}
-            {<Route path="/asignaturas" element={<AsignaturaTable />} />}
+            {<Route path="/Horario" element={<Horario />} />}
+            {<Route path="/Horario/horario" element={<Horario />} />}
+            {<Route path="/Horario/brigadas" element={<BrigadaTable />} />}
+            {<Route path="/Horario/locales" element={<LoacalsTable />} />}
+            {<Route path="/Horario/otros" element={<Prueba />} />}
+            {<Route path="/Horario/asignaturas" element={<AsignaturaTable />} />}
 
             <Route path="/cursos" element={<CursosTable />} />
           </Routes>
@@ -41,7 +48,7 @@ export default function App() {
         </div>{" "}
       </NextUIProvider>
       <ToastContainer />
-    </>
+  </AuthProvider>
   );
 }
 

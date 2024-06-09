@@ -46,6 +46,8 @@ export default function EditClassModal({
   const [backdrop, setBackdrop] = React.useState("opaque");
   const [variant, setvariant] = useState("underlined");
   const backdrops = ["opaque", "blur", "transparent"];
+  const [values, setValues] = React.useState(new Set([`${brigadaSeleccionada}`]));
+
   const colors = [
     {
       label: "Slate",
@@ -255,7 +257,7 @@ export default function EditClassModal({
                           setbrigadasSeleccionadas(e.target.value);
                         }
                       }}
-                      value={brigadasSeleccionadas}
+                      defaultSelectedKeys={values}
                     >
                       {(brigada) => (
                         <SelectItem value={brigada.id} key={brigada.id}>
