@@ -41,9 +41,10 @@ export default function App() {
                 <Route path="/Horario/horario" element={<PrivateRoute element={<Horario />} />} />
                 <Route path="/Horario/brigadas" element={<PrivateRoute element={<BrigadaTable />} />} />
                 <Route path="/Horario/locales" element={<PrivateRoute element={<LoacalsTable />} />} />
+                <Route path="/otros" element={<PrivateRoute element={<Prueba />} />} />
                 <Route path="/Horario/asignaturas" element={<PrivateRoute element={<AsignaturaTable />} />} />
                 <Route path="/cursos" element={<PrivateRoute element={<CursosTable />} />} />
-                <Route path="/Horario" element={<Navigate to="/Horario/auth" />} />
+                <Route path="/" element={<Navigate to="/horario" />} />
               </Routes>
             </div>
           </div>

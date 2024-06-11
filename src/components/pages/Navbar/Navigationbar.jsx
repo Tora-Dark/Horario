@@ -1,8 +1,8 @@
 import React from 'react';
 import { DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar} from "@nextui-org/react";
 import { AcmeLogo } from './Acmelogo';
-import Navibar from './Navibar.jsx';
-import NaviMiddle from './NaviMiddle.jsx';
+import Navibar from './Navibar';
+
 
 export default function Navigationbar() {
 
@@ -14,7 +14,7 @@ export default function Navigationbar() {
     </div>
 
     <div className="hidden sm:flex gap-4"  justify="center">
-<NaviMiddle/>
+<Navibar/>
     </div>
   
     <div as="div" justify="end">
