@@ -1,5 +1,6 @@
 import React from "react";
 import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button} from "@nextui-org/react";
+import Logout from "../Logout";
 
 
 export default function NaviMiddle() {
@@ -30,6 +31,9 @@ export default function NaviMiddle() {
     <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
           <Link href="/Horario/auth">Login</Link>
+        </NavbarItem>
+        <NavbarItem>
+        <Logout/>
         </NavbarItem>
         <NavbarItem>
           <Button as={Link} color="primary" href="/Horario/register" variant="flat">

@@ -1,4 +1,3 @@
-// src/App.js
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { NextUIProvider } from "@nextui-org/system";
@@ -29,7 +28,7 @@ export default function App() {
   return (
     <AuthProvider>
       <NextUIProvider>
-        <Router>
+        <Router basename="/Horario">
           <div className="flex flex-col bg-slate-100 h-[100vh]">
             <Navigationbar />
             <div className="flex flex-row h-full">
@@ -43,7 +42,7 @@ export default function App() {
                 <Route path="/locales" element={<PrivateRoute element={<LoacalsTable />} />} />
                 <Route path="/asignaturas" element={<PrivateRoute element={<AsignaturaTable />} />} />
                 <Route path="/cursos" element={<PrivateRoute element={<CursosTable />} />} />
-                <Route path="/Horario" element={<Navigate to="/Horario/auth" />} />
+                <Route path="/" element={<Navigate to="/horario" />} />
               </Routes>
             </div>
           </div>

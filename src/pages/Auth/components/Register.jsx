@@ -26,7 +26,7 @@ const Register = () => {
     }
     // Aquí podrías agregar más validaciones antes de enviar los datos al servidor
     register({ email, password });
-    navigate('/horario'); // Redirigir después del registro exitoso
+    navigate('/Horario/horario'); // Redirigir después del registro exitoso
   };
 
   return (
