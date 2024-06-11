@@ -1018,9 +1018,6 @@ video {
 .w-\[150px\] {
   width: 150px;
 }
-.w-\[340px\] {
-  width: 340px;
-}
 .w-\[80\%\] {
   width: 80%;
 }
@@ -1973,6 +1970,10 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(30 41 59 / var(--tw-bg-opacity));
 }
+.bg-slate-900 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(15 23 42 / var(--tw-bg-opacity));
+}
 .bg-stone-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(214 211 209 / var(--tw-bg-opacity));
@@ -2051,9 +2052,6 @@ video {
 }
 .object-cover {
   object-fit: cover;
-}
-.p-0 {
-  padding: 0px;
 }
 .p-1 {
   padding: 0.25rem;

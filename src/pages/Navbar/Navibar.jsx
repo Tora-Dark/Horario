@@ -4,10 +4,10 @@ import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button} from "@nex
 
 export default function App() {
   return (
-    <div className="bg-slate-900">
+    <div >
 
     <Navbar  isBlurred={false}
-      className="bg-transparent"
+     className="bg-inherit"
             >
    {/*    <NavbarBrand>
         <AcmeLogo />
@@ -32,7 +32,7 @@ export default function App() {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
-          <Link href="#">Login</Link>
+          <Link href="/Horario/auth">Login</Link>
         </NavbarItem>
         <NavbarItem>
           <Button as={Link} color="primary" href="/Horario/register" variant="flat">

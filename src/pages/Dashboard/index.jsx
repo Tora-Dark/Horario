@@ -42,9 +42,9 @@ export default function TopNavbar() {
           key="horario"
           textValue="horario"
           className={` ${
-            isActive("/horario") ? "bg-slate-700 shadow-md  text-slate-300" : "text-slate-300"
+            isActive("/Horario/horario") ? "bg-slate-700 shadow-md  text-slate-300" : "text-slate-300"
           }`}
-          href="/horario"
+          href="/Horario/horario"
         >
           <div className="flex flex-raw text-large  content-center items-center gap-2">
             <HiCalendar />
@@ -57,11 +57,11 @@ export default function TopNavbar() {
           key="asignaturas"
           textValue="asignaturas"
           className={` ${
-            isActive("/asignaturas")
+            isActive("/Horario/asignaturas")
               ? "bg-slate-700 text-slate-300  shadow-md "
               : "text-slate-300"
           }`}
-          href="/asignaturas"
+          href="/Horario/asignaturas"
         >
           <div className="flex flex-raw text-large  content-center items-center gap-2">
             <HiBookmark />
@@ -74,11 +74,11 @@ export default function TopNavbar() {
           textValue="cursos"
           key="cursos"
           className={` ${
-            isActive("/cursos")
+            isActive("/Horario/cursos")
               ? "bg-slate-700 text-slate-300  shadow-md "
               : "text-slate-300"
           }`}
-          href="/cursos"
+          href="/Horario/cursos"
         >
           <div className="flex flex-raw text-large  content-center items-center gap-2">
             <HiAcademicCap />
@@ -91,11 +91,11 @@ export default function TopNavbar() {
           textValue="locales"
           key="locales"
           className={` ${
-            isActive("/locales")
+            isActive("/Horario/locales")
               ? "bg-slate-700 text-slate-300  shadow-md "
               : "text-slate-300"
           }`}
-          href="/locales"
+          href="/Horario/locales"
         >
           <div className="flex flex-raw text-large  content-center items-center gap-2">
             <HiLibrary />
@@ -108,11 +108,11 @@ export default function TopNavbar() {
           textValue="brigadas"
           key="brigadas"
           className={` ${
-            isActive("/brigadas")
+            isActive("/Horario/brigadas")
               ? "bg-slate-700 text-slate-300  shadow-md "
               : "text-slate-300"
           }`}
-          href="/brigadas"
+          href="/Horario/brigadas"
         >
           <div className="flex flex-raw text-large  content-center items-center gap-2">
             <HiUserGroup />
@@ -125,11 +125,11 @@ export default function TopNavbar() {
           textValue="otros"
           key="otros"
           className={` ${
-            isActive("/otros")
+            isActive("/Horario/otros")
               ? "bg-slate-700 text-slate-300  shadow-md "
               : "text-slate-300"
           }`}
-          href="/otros"
+          href="/Horario/otros"
         >
           <div className="flex flex-raw text-large  content-center items-center gap-2">
             <HiAcademicCap />
