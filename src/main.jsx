@@ -7,12 +7,12 @@ import { BrowserRouter, useNavigate } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
-
-  <BrowserRouter>
-    <main className="light text-foreground bg-background">
+  <main className="light text-foreground bg-background">
       <App />
     </main>
-  </BrowserRouter>
+      
+  /*     /*   <BrowserRouter> */
+ /*  </BrowserRouter> * */
 
   // </React.StrictMode>,
 );

@@ -1,6 +1,8 @@
 import React from 'react';
-import {Navbar, NavbarBrand,Breadcrumbs, BreadcrumbItem, NavbarContent, NavbarItem, Link, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar} from "@nextui-org/react";
+import { DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar} from "@nextui-org/react";
 import { AcmeLogo } from './Acmelogo';
+import Navibar from './Navibar';
+
 
 export default function Navigationbar() {
 
@@ -12,19 +14,7 @@ export default function Navigationbar() {
     </div>
 
     <div className="hidden sm:flex gap-4"  justify="center">
-    <Breadcrumbs
-    color='primary'
-    separator="/"
-    itemClasses={{
-      separator: "px-2"
-    }}
-  >
-    <BreadcrumbItem>Home</BreadcrumbItem>
-    <BreadcrumbItem>Music</BreadcrumbItem>
-    <BreadcrumbItem>Artist</BreadcrumbItem>
-    <BreadcrumbItem>Album</BreadcrumbItem>
-    <BreadcrumbItem>Song</BreadcrumbItem>
-  </Breadcrumbs>
+<Navibar/>
     </div>
   
     <div as="div" justify="end">

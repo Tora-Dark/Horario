@@ -218,7 +218,6 @@ export default function Horario() {
           }
         });
       });
-      // alert(JSON.stringify(newHorario));
       return newHorario;
     });
   };
