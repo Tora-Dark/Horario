@@ -22,7 +22,7 @@ const PrivateRoute = ({ element }) => {
   if (loading) {
     return <h1>Cargando...</h1>;
   }
-  return user ? element : <Navigate to="/Horario/auth" />;
+  return user ? element : <Navigate to="/auth" />;
 };
 
 export default function App() {
@@ -35,13 +35,13 @@ export default function App() {
             <div className="flex flex-row h-full">
               <TopNavbar />
               <Routes>
-                <Route path="/Horario/auth" element={<Auth />} />
-                <Route path="/Horario/register" element={<Register />} />
-                <Route path="/Horario/logout" element={<Logout />} />
-                <Route path="/Horario/horario" element={<PrivateRoute element={<Horario />} />} />
-                <Route path="/Horario/brigadas" element={<PrivateRoute element={<BrigadaTable />} />} />
-                <Route path="/Horario/locales" element={<PrivateRoute element={<LoacalsTable />} />} />
-                <Route path="/Horario/asignaturas" element={<PrivateRoute element={<AsignaturaTable />} />} />
+                <Route path="/auth" element={<Auth />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/logout" element={<Logout />} />
+                <Route path="/horario" element={<PrivateRoute element={<Horario />} />} />
+                <Route path="/brigadas" element={<PrivateRoute element={<BrigadaTable />} />} />
+                <Route path="/locales" element={<PrivateRoute element={<LoacalsTable />} />} />
+                <Route path="/asignaturas" element={<PrivateRoute element={<AsignaturaTable />} />} />
                 <Route path="/cursos" element={<PrivateRoute element={<CursosTable />} />} />
                 <Route path="/Horario" element={<Navigate to="/Horario/auth" />} />
               </Routes>

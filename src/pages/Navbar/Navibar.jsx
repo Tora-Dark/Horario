@@ -1,14 +1,15 @@
 import React from "react";
 import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button} from "@nextui-org/react";
+import Logout from "../Logout";
 /* import {AcmeLogo} from "./AcmeLogo.jsx"; */
+
 
 export default function App() {
   return (
     <div >
-
     <Navbar  isBlurred={false}
      className="bg-inherit"
-            >
+     >
    {/*    <NavbarBrand>
         <AcmeLogo />
         <p className="font-bold text-inherit">ACME</p>
@@ -33,6 +34,9 @@ export default function App() {
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
           <Link href="/Horario/auth">Login</Link>
+        </NavbarItem>
+        <NavbarItem>
+        <Logout/>
         </NavbarItem>
         <NavbarItem>
           <Button as={Link} color="primary" href="/Horario/register" variant="flat">

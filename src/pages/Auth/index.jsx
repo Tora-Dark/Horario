@@ -15,7 +15,7 @@ const Auth = () => {
     e.preventDefault();
     // Simulación de autenticación
     login({ email });
-    navigate('/Horario/horario');
+    navigate('/horario');
   };
 
   return (
