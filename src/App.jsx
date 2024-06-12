@@ -28,7 +28,7 @@ export default function App() {
   return (
     <AuthProvider>
       <NextUIProvider>
-        <Router basename="/Horario">
+      {/*   <Router basename="/Horario"> */}
           <div className="flex flex-col bg-slate-100 h-[100vh]">
             <Navigationbar />
             <div className="flex flex-row h-full">
@@ -46,7 +46,7 @@ export default function App() {
               </Routes>
             </div>
           </div>
-        </Router>
+{/*         </Router> */}
         <ToastContainer />
       </NextUIProvider>
     </AuthProvider>
