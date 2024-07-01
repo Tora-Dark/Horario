@@ -29,7 +29,7 @@ import { HiCube } from "react-icons/hi";
 import { HiOutlinePlusCircle } from "react-icons/hi";
 const iconClasses = "text-xl  pointer-events-none flex-shrink-0";
 /* const apiURL = "http://127.0.0.1:8000/api"; */
-const apiURL = import.meta.env.VITE_API_URL;
+const apiURL = import.meta.env.VITE_LOCAL_API_URL;
 
 import axios from "axios";
 //import CreateBrigadaModal from "./CreateBrigadaModal";

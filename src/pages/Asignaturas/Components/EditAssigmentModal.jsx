@@ -14,7 +14,7 @@ import {
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 /* const endpoint = "http://127.0.0.1:8000/api/asignaturas"; */
-const apiURL = import.meta.env.VITE_API_URL;
+const apiURL = import.meta.env.VITE_LOCAL_API_URL;
 
 import axios from "axios";
 import { HiTemplate } from "react-icons/hi";

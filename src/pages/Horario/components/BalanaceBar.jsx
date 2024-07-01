@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-const apiURL = import.meta.env.VITE_API_URL;
+const apiURL = import.meta.env.VITE_LOCAL_API_URL;
 
 /* const apiURL = "http://127.0.0.1:8000/api/balance_de_carga"; */
 import { HiBadgeCheck } from "react-icons/hi";

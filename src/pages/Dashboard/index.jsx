@@ -39,12 +39,29 @@ export default function TopNavbar() {
         aria-label="Navigation"
       >
         <ListboxItem
+          textValue="home"
+          key="home"
+          className={` ${
+            isActive("/Home")
+              ? "bg-slate-700 text-slate-300  shadow-md "
+              : "text-slate-300"
+          }`}
+          href="/api/home"
+        >
+          <div className="flex flex-raw text-large  content-center items-center gap-2">
+            <HiAcademicCap />
+            <div>
+              <h2>Home</h2>
+            </div>{" "}
+          </div>
+        </ListboxItem>
+        <ListboxItem
           key="horario"
           textValue="horario"
           className={` ${
-            isActive("/Horario/horario") ? "bg-slate-700 shadow-md  text-slate-300" : "text-slate-300"
+            isActive("/horario") ? "bg-slate-700 shadow-md  text-slate-300" : "text-slate-300"
           }`}
-          href="/Horario/horario"
+          href="/api/horario"
         >
           <div className="flex flex-raw text-large  content-center items-center gap-2">
             <HiCalendar />
@@ -57,11 +74,11 @@ export default function TopNavbar() {
           key="asignaturas"
           textValue="asignaturas"
           className={` ${
-            isActive("/Horario/asignaturas")
+            isActive("/asignaturas")
               ? "bg-slate-700 text-slate-300  shadow-md "
               : "text-slate-300"
           }`}
-          href="/Horario/asignaturas"
+          href="/api/asignaturas"
         >
           <div className="flex flex-raw text-large  content-center items-center gap-2">
             <HiBookmark />
@@ -74,11 +91,11 @@ export default function TopNavbar() {
           textValue="cursos"
           key="cursos"
           className={` ${
-            isActive("/Horario/cursos")
+            isActive("/cursos")
               ? "bg-slate-700 text-slate-300  shadow-md "
               : "text-slate-300"
           }`}
-          href="/Horario/cursos"
+          href="/api/cursos"
         >
           <div className="flex flex-raw text-large  content-center items-center gap-2">
             <HiAcademicCap />
@@ -91,11 +108,11 @@ export default function TopNavbar() {
           textValue="locales"
           key="locales"
           className={` ${
-            isActive("/Horario/locales")
+            isActive("/locales")
               ? "bg-slate-700 text-slate-300  shadow-md "
               : "text-slate-300"
           }`}
-          href="/Horario/locales"
+          href="/api/locales"
         >
           <div className="flex flex-raw text-large  content-center items-center gap-2">
             <HiLibrary />
@@ -108,33 +125,16 @@ export default function TopNavbar() {
           textValue="brigadas"
           key="brigadas"
           className={` ${
-            isActive("/Horario/brigadas")
+            isActive("/brigadas")
               ? "bg-slate-700 text-slate-300  shadow-md "
               : "text-slate-300"
           }`}
-          href="/Horario/brigadas"
+          href="/api/brigadas"
         >
           <div className="flex flex-raw text-large  content-center items-center gap-2">
             <HiUserGroup />
             <div>
               <h2>Brigadas</h2>
-            </div>{" "}
-          </div>
-        </ListboxItem>
-        <ListboxItem
-          textValue="otros"
-          key="otros"
-          className={` ${
-            isActive("/Horario/otros")
-              ? "bg-slate-700 text-slate-300  shadow-md "
-              : "text-slate-300"
-          }`}
-          href="/Horario/otros"
-        >
-          <div className="flex flex-raw text-large  content-center items-center gap-2">
-            <HiAcademicCap />
-            <div>
-              <h2>Otros</h2>
             </div>{" "}
           </div>
         </ListboxItem>

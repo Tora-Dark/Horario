@@ -9,7 +9,7 @@ const Logout = () => {
 
   const handleLogout = () => {
     logout();
-    navigate('Horario/auth');
+    navigate('/auth');
   };
 
   return (

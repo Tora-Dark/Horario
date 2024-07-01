@@ -22,7 +22,7 @@ import {
   HiOutlinePencilAlt,
   HiOutlineTrash,
 } from "react-icons/hi";
-const apiURL = import.meta.env.VITE_API_URL;
+const apiURL = import.meta.env.VITE_LOCAL_API_URL;
 
 const iconClasses =
   "text-xl text-default-500 pointer-events-none flex-shrink-0";

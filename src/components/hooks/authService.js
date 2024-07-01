@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 /* const API_URL = 'http://localhost:8000/api'; // Ajusta la URL según tu configuración */
-const apiURL = import.meta.env.VITE_API_URL;
+const apiURL = import.meta.env.VITE_LOCAL_API_URL;
 
 export const register = (name, email, password) => {
     return axios.post(`${apiURL}/register`, {

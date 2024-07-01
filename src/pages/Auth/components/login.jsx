@@ -16,7 +16,7 @@ const Login = () => {
         login(email, password).then(
             response => {
                 setMessage('Login successful!');
-                navigate('/brigadas');
+                navigate('/horario');
             },
             error => {
                 setMessage('Login failed!');

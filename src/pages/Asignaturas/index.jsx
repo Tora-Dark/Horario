@@ -39,7 +39,7 @@ import CreateAssigmentModal from "./Components/CreateAssigmentModal";
 import EditAssigmentModal from "./Components/EditAssigmentModal";
 import { toast } from "react-toastify";
 /* const apiURL = "http://127.0.0.1:8000/api"; */
-const apiURL = import.meta.env.VITE_API_URL;
+const apiURL = import.meta.env.VITE_LOCAL_API_URL;
 
 const columns = [
   { name: "NOMBRE", uid: "nombre" },

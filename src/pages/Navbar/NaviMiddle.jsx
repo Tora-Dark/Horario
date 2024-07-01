@@ -30,13 +30,13 @@ export default function NaviMiddle() {
        
     <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
-          <Link href="/Horario/auth">Login</Link>
+          <Link href="/auth">Login</Link>
         </NavbarItem>
         <NavbarItem>
         <Logout/>
         </NavbarItem>
         <NavbarItem>
-          <Button as={Link} color="primary" href="/Horario/register" variant="flat">
+          <Button as={Link} color="primary" href="/register" variant="flat">
             Sign Up
           </Button>
         </NavbarItem>
