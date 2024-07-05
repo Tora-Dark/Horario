@@ -1,47 +1,110 @@
 import React from "react";
-import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button} from "@nextui-org/react";
-import Logout from "../Logout";
+import {
+  Navbar,
+  NavbarContent,
+  NavbarItem,
+  Link,
+  Button,
+} from "@nextui-org/react";
+import { HiHome } from "react-icons/hi";
+import { GrGroup } from "react-icons/gr";
+import { FaArrowUp,  } from "react-icons/fa";
+import { useLocation } from "react-router-dom";
 
 
 export default function NaviMiddle() {
-    return (
-      <Navbar>
-        {/* <NavbarBrand>
-          <AcmeLogo />
-          <p className="font-bold text-inherit">ACME</p>
-        </NavbarBrand> */}
-        <NavbarContent className="hidden sm:flex gap-4" justify="center">
-          <NavbarItem>
-            <Link color="foreground" href="#">
-              Features
-            </Link>
-          </NavbarItem>
-          <NavbarItem isActive>
-            <Link href="#" aria-current="page">
-              Customers
-            </Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link color="foreground" href="#">
-              Integrations
-            </Link>
-          </NavbarItem>
-        </NavbarContent>
-       
-    <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
-          <Link href="/auth">Login</Link>
+  const location = useLocation();
+
+  const isActive = (href) => location.pathname === href;
+
+  return (
+    <Navbar className="bg-slate-800">
+      <NavbarContent justify="center">
+        <NavbarItem>
+          <Button
+            as={Link}
+            color="foreground"
+            className={` ${
+              isActive("/home")
+                ? "bg-slate-700 text-slate-300 shadow-md"
+                : "text-slate-300"
+            }`}
+            href="/api/home"
+            size="lg"
+          >
+            <HiHome />
+            Inicio
+          </Button>
         </NavbarItem>
         <NavbarItem>
-        <Logout/>
+          <Button
+            as={Link}
+            color="foreground"
+            className={` ${
+              isActive("/aboutUs")
+                ? "bg-slate-700 text-slate-300 shadow-md"
+                : "text-slate-300"
+            }`}
+            href="/api/aboutUs"
+            size="lg"
+          >
+            <GrGroup />
+            Sobre nosotros
+          </Button>
         </NavbarItem>
         <NavbarItem>
-          <Button as={Link} color="primary" href="/register" variant="flat">
-            Sign Up
+          <Button
+            as={Link}
+            color="foreground"
+            className={` ${
+              isActive("/integrations")
+                ? "bg-slate-700 text-slate-300 shadow-md"
+                : "text-slate-300"
+            }`}
+            href="/api/integrations"
+            size="lg"
+          >
+            Integrations
           </Button>
         </NavbarItem>
       </NavbarContent>
-      </Navbar>
-    );
-  }
-
+      <NavbarContent justify="end">
+        <NavbarItem>
+          <Button
+            variant="shadow"
+            color="secondary"
+            as={Link}
+            size="lg"
+            href="/api/horario"
+          >
+            <FaArrowUp />
+            Get Started
+          </Button>
+        </NavbarItem>
+        <NavbarItem>
+          <Button
+            as={Link}
+            size="lg"
+            color="primary"
+            variant="ghost"
+            className="text-white"
+            href="/api/auth"
+          >
+            Iniciar sesión
+          </Button>
+        </NavbarItem>
+        <NavbarItem>
+          <Button
+            as={Link}
+            color="primary"
+            size="lg"
+            className="text-white"
+            href="/api/register"
+          >
+            Registrarse
+          </Button>
+        </NavbarItem>
+      </NavbarContent>
+    </Navbar>
+  );
+}

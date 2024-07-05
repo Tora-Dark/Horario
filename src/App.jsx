@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes, 
+  Route, 
+  Navigate,useLocation
+} from "react-router-dom";
 import { NextUIProvider } from "@nextui-org/system";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -15,6 +20,7 @@ import BrigadaTable from "./pages/Brigadas/index.jsx";
 import LoacalsTable from "./pages/Locals/index.jsx";
 import CursosTable from "./pages/Cursos/index.jsx";
 import Register from "./pages/Auth/components/Register.jsx";
+import Home from "./pages/Home/index.jsx";
 
 const PrivateRoute = ({ element }) => {
   const { user, loading } = useAuth();
@@ -28,27 +34,60 @@ export default function App() {
   return (
     <AuthProvider>
       <NextUIProvider>
-      {/*   <Router basename="/Horario"> */}
-          <div className="flex flex-col bg-slate-100 h-[100vh]">
-            <Navigationbar />
-            <div className="flex flex-row h-full">
-              <TopNavbar />
-              <Routes>
-                <Route path="/auth" element={<Auth />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/logout" element={<Logout />} />
-                <Route path="/horario" element={<PrivateRoute element={<Horario />} />} />
-                <Route path="/brigadas" element={<PrivateRoute element={<BrigadaTable />} />} />
-                <Route path="/locales" element={<PrivateRoute element={<LoacalsTable />} />} />
-                <Route path="/asignaturas" element={<PrivateRoute element={<AsignaturaTable />} />} />
-                <Route path="/cursos" element={<PrivateRoute element={<CursosTable />} />} />
-                <Route path="/" element={<Navigate to="/horario" />} />
-              </Routes>
-            </div>
-          </div>
-{/*         </Router> */}
+          <MainApp />
         <ToastContainer />
       </NextUIProvider>
     </AuthProvider>
   );
 }
+
+const MainApp = () => {
+  const { user, loading } = useAuth();
+  const location = useLocation();
+
+  const isActive = (href) => location.pathname === href;
+  if (loading) {
+    return <h1>Cargando...</h1>;
+  }
+
+  return (
+    <div className="flex flex-col bg-slate-100 h-[100vh]">
+      <Navigationbar />
+      <div className="flex  flex-row w-full h-full">
+        <div className="">
+      {user && !isActive("/home") && <TopNavbar />}
+
+          <Routes>
+            <Route path="/home" element={<Home />} />
+          </Routes>
+        </div>
+        <Routes>
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/logout" element={<Logout />} />
+          <Route
+            path="/horario"
+            element={<PrivateRoute element={<Horario />} />}
+          />
+          <Route
+            path="/brigadas"
+            element={<PrivateRoute element={<BrigadaTable />} />}
+          />
+          <Route
+            path="/locales"
+            element={<PrivateRoute element={<LoacalsTable />} />}
+          />
+          <Route
+            path="/asignaturas"
+            element={<PrivateRoute element={<AsignaturaTable />} />}
+          />
+          <Route
+            path="/cursos"
+            element={<PrivateRoute element={<CursosTable />} />}
+          />
+          <Route path="/" element={<Navigate to="/home" />} />
+        </Routes>
+      </div>
+    </div>
+  );
+};

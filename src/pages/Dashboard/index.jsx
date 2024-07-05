@@ -22,15 +22,17 @@ import {
 } from "react-icons/hi";
 import { NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { BiHome } from "react-icons/bi";
+import { HiHome } from "react-icons/hi";
 
 export default function TopNavbar() {
   const location = useLocation();
 
   const isActive = (href) => location.pathname === href;
   return (
-    <div className="bg-slate-800   h-full  flex  shadow-inner shadow-current ">
+    <div className="bg-slate-800 backdrop-blur-sm bg-white/30 w-52 h-full  flex  shadow-inner shadow-current ">
       <Listbox
-        className="w-52"
+        className="w-52 h-full"
         variant="shadow"
         disallowEmptySelection
         selectionMode="single"
@@ -42,16 +44,16 @@ export default function TopNavbar() {
           textValue="home"
           key="home"
           className={` ${
-            isActive("/Home")
+            isActive("/home")
               ? "bg-slate-700 text-slate-300  shadow-md "
               : "text-slate-300"
           }`}
           href="/api/home"
         >
           <div className="flex flex-raw text-large  content-center items-center gap-2">
-            <HiAcademicCap />
+            <HiHome/>
             <div>
-              <h2>Home</h2>
+              <h2>Inicio</h2>
             </div>{" "}
           </div>
         </ListboxItem>
