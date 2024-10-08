@@ -53,8 +53,9 @@ export default function BalanceBar({
       <div className="flex flex-row justify-center gap-7 bg-slate-800 p-2  shadow-sm shadow-slate-800 border-slate-600 text-white items-center content-center text-center">
         <h2 className="text-large font-semibold">Balance de Carga</h2>
         <Button
+        color="secondary"
+        variant="shadow"
           onPress={onOpen}
-          className="bg-gradient-to-tr from-blue-300 to-indigo-500 shadow-current text-white shadow-sm"
         >
           + Añadir
         </Button>

@@ -20,6 +20,8 @@ const horarioInicial = [
   ["", "", "", "", ""],
 ];
 
+const hora = 7;
+const  minute = 0;
 const semanaInicial = 1;
 const inicialBrigada = 0;
 export default function Horario() {
@@ -248,6 +250,10 @@ export default function Horario() {
       </div>
     );
 
+  
+    
+  
+
   return (
     <>
       {" "}
@@ -365,7 +371,19 @@ export function HorarioTabla({
         </tr>
       </thead>
       <tbody>
-        {horarioTabla.map((fila, turno) => (
+      {horarioTabla.map((fila, turno) => {
+
+        const startHour = 8; // Hora de inicio en 8 AM
+        const startMinute = 0; // Minuto de inicio en 00
+         // Calcular el incremento de tiempo
+    const totalMinutes = turno * 90; // Cada turno dura 90 minutos (1h 30min)
+    const hour = Math.floor((startHour * 60 + startMinute + totalMinutes) / 60);
+    const minute = (startMinute + totalMinutes) % 60;
+  
+    // Ajustar para que el formato sea de 12 horas
+    const formattedHour = hour > 12 ? hour - 12 : hour;
+    const period = hour >= 12 ? 'PM' : 'AM';
+    return (
           <tr key={turno}>
             <td className="  border-slate-700 text-center">
               <div
@@ -374,6 +392,8 @@ export function HorarioTabla({
                 }
               >
                 {turno + 1}
+                <br/>
+                {`${formattedHour}:${minute.toString().padStart(2, '0')} ${period}`}
               </div>
             </td>
             {fila.map((clase, fecha) => (
@@ -401,7 +421,8 @@ export function HorarioTabla({
               </td>
             ))}
           </tr>
-        ))}
+  )})}
+
       </tbody>
     </table>
   );
